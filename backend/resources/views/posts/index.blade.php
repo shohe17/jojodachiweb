@@ -48,7 +48,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jojodachi</title>
-  <link rel="stylesheet" href="./assets/css/reset.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Google Fonts -->
@@ -57,7 +56,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
   <!-- JQuery -->
   <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -67,7 +66,9 @@
   <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-  <script defer src="./assets/js/app.js"></script>
+  <!-- assertでパブリックを返す -->
+  <script defer src="{{ asset('/js/app.js') }}"></script>
+
 </head>
 
 <body>
@@ -114,7 +115,7 @@
         <div class="col-lg-4 col-md-12">
         <div class="card">
           <!-- Card image -->
-          <img class="card-img-top" src="../../images/posts/default.jpg" alt="Card image cap">
+          <img class="card-img-top" src="{{ asset('/images/posts/default.jpg') }}" alt="Card image cap">
           <div class="rounded-bottom lighten-3 text-center pt-3">
               <ul class="list-unstyled list-inline font-small">
                   <li class="list-inline-item pr-2 grey-text"><i class="far fa-clock pr-1"></i>05/10/2015</li>
