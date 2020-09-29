@@ -14,3 +14,6 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
+
+Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');
+Route::post('posts/create', [PostController::class, 'create']);

@@ -1,45 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ToDo App</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<header>
-  <nav class="my-navbar">
-    <a class="my-navbar-brand" href="/">ToDo App</a>
-  </nav>
-</header>
-<main>
-  <div class="container">
-    <div class="row">
-      <div class="col col-md-4">
-        <nav class="panel panel-default">
-          <div class="panel-heading">フォルダ</div>
-          <div class="panel-body">
-            <a href="#" class="btn btn-default btn-block">
-              フォルダを追加する
-            </a>
-          </div>
-          <div class="list-group">
-            @foreach($posts as $post)
-              <a href="{{ route('posts.index', ['id' => $post->id]) }}" class="list-group-item">
-                {{ $post->title }}
-              </a>
-            @endforeach
-          </div>
-        </nav>
-      </div>
-      <div class="column col-md-8">
-      </div>
-    </div>
-  </div>
-</main>
-</body>
-</html> -->
 
 <!DOCTYPE html>
 <html>
@@ -112,10 +70,18 @@
   <main>
     <div class="container" style="height:1300px;">
       <div class="row mt-5 pt-5">             
+      @foreach($posts as $post)
         <div class="col-lg-4 col-md-12">
         <div class="card">
           <!-- Card image -->
-          <img class="card-img-top" src="{{ asset('/images/posts/default.jpg') }}" alt="Card image cap">
+          <img class="card-img-top" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
+            <div class="list-group">
+
+                <a href="{{ route('posts.index', ['id' => $post->id]) }}" class="list-group-item">
+                  {{ $post->title }}
+                </a>
+             
+            </div>
           <div class="rounded-bottom lighten-3 text-center pt-3">
               <ul class="list-unstyled list-inline font-small">
                   <li class="list-inline-item pr-2 grey-text"><i class="far fa-clock pr-1"></i>05/10/2015</li>
@@ -125,7 +91,8 @@
           </div>
 
           </div>
-        </div>            
+        </div> 
+        @endforeach投稿           
       </div>
     </div>
   </main>
