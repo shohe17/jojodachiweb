@@ -36,4 +36,3 @@ Route::post('posts/delete/{id}', [PostController::class, 'delete']);
 
 //mypageのルーティング
 Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
-// Route::post('posts/mypage', [PostController::class, 'indexMypage']);
