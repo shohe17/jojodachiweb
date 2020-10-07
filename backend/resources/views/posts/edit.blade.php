@@ -13,7 +13,8 @@
           @endforeach
         </div>
       @endif
-      <form action="{{ route('posts.create') }}" method="post" enctype="multipart/form-data">
+      <!-- 第一引数に名前、第二引数にパラメーターを入れる -->
+      <form method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
         @csrf
         <div>
           <label for="title" >投稿の説明</label>

@@ -12,6 +12,7 @@ class PostController extends Controller
     {
       //$postsに、Postモデルのallメソッドでpostデータを全て取得
       $posts = Post::all();
+
       //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
       //テンプレートのファイル名
       //viesフォルダのなかのファイルを返してくれる役割
@@ -64,7 +65,7 @@ class PostController extends Controller
 
     }
     //編集機能追加
-    public function edit(int $id, EditPost $request )
+    public function edit(int $id, Request $request )
     {
       //TODO バリデーション
       //TODO 編集したいpostのデータを取得
@@ -74,38 +75,33 @@ class PostController extends Controller
       $post->title = $request->title;
       // $post->image_at = $request->image_at;
       $post->save();
-      //TODO マイページにリダイレクト
-      return redirect()->route('posts.index');
+      //マイページに移動
+      return redirect()->route('posts.mypage');
     }
 
     public function delete (int $id, Request $request)
     {
       //データ受け取り、削除処理
+      
       $post = Post::find($id); 
       //  Post::find($request->id)
       $post->id = $request->id;
       $post->delete();
        
-      //リダイレクト
-      return redirect('/');
+      //マイページに移動
+      return redirect()->route('posts.mypage');
     }
 
-    // public function ShowMypageForm()
-    // {
-    //   return view('posts/mypage');
-    // }
-
-    // public function indexMypage()
-    // {
-    //   //$postsに、Postモデルのallメソッドでpostデータを全て取得
-    //   // dd(123);  
-    //   $posts = Post::all();
-    //   //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
-    //   //テンプレートのファイル名
-    //   //viesフォルダのなかのファイルを返してくれる役割
-    //   return view('posts/mypage', [
-    //     //posutsテーブルデータをテンプレートに渡す
-    //     'posts' => $posts,
-    //   ]);
-    // }
+    public function ShowMypageForm()
+    {
+      //$postsに、Postモデルのallメソッドでpostデータを全て取得  
+      $posts = Post::all();
+      //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
+      //テンプレートのファイル名
+      //viesフォルダのなかのファイルを返してくれる役割
+      return view('posts/mypage', [
+      //postsテーブルデータをテンプレートに渡す
+      'posts' => $posts,
+      ]);
+    }
 }
