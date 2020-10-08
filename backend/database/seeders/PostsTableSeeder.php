@@ -1,5 +1,5 @@
 <?php
-
+//テストデータを入れるためだけのファイル
 namespace Database\Seeders;
 
 use Carbon\Carbon;
@@ -15,14 +15,14 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = DB::table('users')->first();
         $titles = ['仗助', 'ハイウェイスター', 'アブドゥル'];
         // $user_id = 1;
         // $image_at = 1;
         
         foreach ($titles as $title) {
           DB::table('posts')->insert([
-            'user_id' => 1,
-            // 'user_id' => $user_id,
+            'user_id' => $user->id,
             'title' => $title,
             'image_at' => 1,
             // 'image_at' => $image_at,

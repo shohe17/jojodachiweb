@@ -11,6 +11,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function posts()
+    {
+      // 確認userとpostsの関係性（一対多）を表していて、テーブル同士のリレーションを定義する度に必要
+      return $this->hasMany('App\Models\Post');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
