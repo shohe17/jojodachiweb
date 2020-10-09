@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -47,12 +47,20 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    //バリデーション定義
+    //確認第一引数が検証するデータ、第二がルールの定義、第三がメッセージの定義、第四が項目名の定義
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+          'name' => ['required', 'string', 'max:255'],
+          //uniqueはdbの値を参照してすでに使われているデータか確認するルールで、引数のusersはテーブル名のこと
+          'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+          'password' => ['required', 'string', 'min:6', 'confirmed'],
+        //メッセージは validation.phpで定義するのでからの配列を渡し、第四引数で日本語の項目名を定義
+        ], [], [
+          'name' => 'ユーザー名',
+          'email' => 'メールアドレス',
+          'password' => 'パスワード',
         ]);
     }
 

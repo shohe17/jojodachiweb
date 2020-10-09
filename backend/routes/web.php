@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+
 // use Illuminate\Routing\Route;
 
 //Method Illuminate\Routing\Route::get does not exist.
@@ -18,6 +20,7 @@ use App\Models\Post;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
@@ -39,4 +42,4 @@ Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('pos
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
