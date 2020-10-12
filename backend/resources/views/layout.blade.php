@@ -42,16 +42,25 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route ('posts.create') }}">投稿ページ</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">プロフィール設定ページ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ログアウト</a>
-        </li>
       </ul>
-      <ul class="navbar-nav">    
-      </ul>
-      <ul class="navbar-nav nav-flex-icons">
+      <div class="my-navbar-control">
+        <!-- ログインしていた場合はユーザーネームとログアウトボタンを表示させる -->
+        <!-- authクラスのcheckメソッドでログインしてるかどうか確認 -->
+        @if (Auth::check())
+          <span class="my-navbar-item">ようこそ, {{ Auth::user()->name }}さん</span>
+          ｜
+          <a href="{{ route('login') }}" id="logout" class="my-navbar-item">ログアウト</a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
+        <!-- そうでない場合はログインと会員登録ボタンを表示させる -->
+        @else
+          <a class="my-navbar-item" href="{{ route('login') }}">ログイン</a>
+          ｜
+          <a class="my-navbar-item" href="{{ route('register') }}">会員登録</a>
+        @endif
+      </div>
+        <!-- <ul class="navbar-nav nav-flex-icons">
         <li class="nav-item">
           <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
         </li>
@@ -61,12 +70,20 @@
         <li class="nav-item">
           <a class="nav-link"><i class="fab fa-instagram"></i></a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </nav>
 </header>
 <main>
   @yield('content')
 </main>
+  @if(Auth::check())
+    <script>
+      document.getElementById('logout').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('logout-form').submit();
+      });
+    </script>
+  @endif
 </body>
 </html>

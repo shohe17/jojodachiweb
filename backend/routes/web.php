@@ -20,26 +20,28 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+//確認ログイン承認を求める機能の実装？
+Route::group(['middleware' => 'auth'], function(){
 
-Route::get('/', [PostController::class, 'index'])->name('posts.index');
+  Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
-Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');
-Route::post('posts/create', [PostController::class, 'create']);
+  Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');
+  Route::post('posts/create', [PostController::class, 'create']);
 
-//editのルーティング、ページ移動
-Route::get('posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
-//editのルーティング、データ送信
-Route::post('posts/{id}/edit', [PostController::class, 'edit']);
+  //editのルーティング、ページ移動
+  Route::get('posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
+  //editのルーティング、データ送信
+  Route::post('posts/{id}/edit', [PostController::class, 'edit']);
 
-//deleteのルーティング、データ送信
-Route::post('posts/delete/{id}', [PostController::class, 'delete']);
-//名前指定が必要そうな場合に追加する
-// ->name('delete.edit');
+  //deleteのルーティング、データ送信
+  Route::post('posts/delete/{id}', [PostController::class, 'delete']);
+  //名前指定が必要そうな場合に追加する
+  // ->name('delete.edit');
 
-//mypageのルーティング
-Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
+  //mypageのルーティング
+  Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
 
+});
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
