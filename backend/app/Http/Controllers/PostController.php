@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Createpost;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
 
 class PostController extends Controller
@@ -28,12 +30,10 @@ class PostController extends Controller
       return view('posts/create');
     }
 
-    public function create(Request $request)
+    public function create(Createpost $request)
     {
       // TODO バリデーション後で書く
-
       // TODO userが入力した内容を受け取る 
-      
       //画像をフォルダに保存
       $user_id = 1;
       $path = $request->image->store("public/posts/$user_id");
@@ -44,7 +44,8 @@ class PostController extends Controller
       //第一引数を第二引数に置き換える
       $post->image_at = str_replace('public/', '', $path);
       $post->user_id = $user_id;
-      $post->save();
+      //確認、青文字はクラスを呼び出している？
+      Auth::user()->posts()->save($post);
 
       //一覧表示にリダイレクト
       return redirect()->route('posts.index');
@@ -94,11 +95,10 @@ class PostController extends Controller
 
     public function ShowMypageForm()
     {
-      //$postsに、Postモデルのallメソッドでpostデータを全て取得  
-      $posts = Post::all();
-      //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
-      //テンプレートのファイル名
-      //viesフォルダのなかのファイルを返してくれる役割
+      //ログインユーザーがもつpostsのみを取得させる
+      $posts = Auth::user()->posts()->get();
+      //view関数の第一引数でファイル名を指定
+      //viewsフォルダのなかのファイルを返してくれる役割
       return view('posts/mypage', [
       //postsテーブルデータをテンプレートに渡す
       'posts' => $posts,
