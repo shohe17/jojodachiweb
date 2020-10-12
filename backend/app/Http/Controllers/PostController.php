@@ -33,7 +33,7 @@ class PostController extends Controller
     public function create(Createpost $request)
     {
       // TODO バリデーション後で書く
-      // TODO userが入力した内容を受け取る 
+      //確認 タイトルだけが投稿された時のバリデーション
       //画像をフォルダに保存
       $user_id = 1;
       $path = $request->image->store("public/posts/$user_id");

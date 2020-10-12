@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-  <div class="container">
-    <div class="row">
+  <div class="container pt-5">
+    <div class="row mt-5">
       <div class="col col-md-offset-3 col-md-6">
         <nav class="panel panel-default">
           <div class="panel-heading">ログイン</div>

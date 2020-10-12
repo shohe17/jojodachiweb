@@ -75,6 +75,7 @@
   </nav>
 </header>
 <main>
+  
   @yield('content')
 </main>
   @if(Auth::check())

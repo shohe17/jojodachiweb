@@ -3,6 +3,15 @@
 
   <div class="container" sryle="height:1300px;">
     <div class="row mt-5 pt-5">
+    @if($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach($errors->all() as $message)
+              <li>{{ $message }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       <h2 class="col-12 text-info">画像投稿</h2>
       <br>
       <br>
