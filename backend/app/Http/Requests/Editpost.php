@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\Createpost;
 
-class Createpost extends FormRequest
+class Editpost extends Createpost
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,9 +13,7 @@ class Createpost extends FormRequest
      */
     public function authorize()
     {
-      //リクエスト内容に基づいた権限の確認
-      //今回は使わないので、faultからtrueに
-        return true;
+        return false;
     }
 
     /**
@@ -26,7 +24,6 @@ class Createpost extends FormRequest
     public function rules()
     {
         return [
-          //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
           'title' => 'required|max:150'
         ];
     }
