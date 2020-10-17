@@ -2,17 +2,19 @@
 @section('content')
   <div class="container" sryle="height:1300px;">
     <div class="row mt-5 pt-5">
+      @if($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach($errors->all() as $message)
+              <li>{{ $message }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       <h2 class="col-12 text-info">投稿編集</h2>
       <br>
       <br>
       <br>
-      @if($errors->any())
-        <div class="alert alert-danger">
-          @foreach($errors->all() as $message)
-            <p>{{ $message }}</p>
-          @endforeach
-        </div>
-      @endif
       <!-- 第一引数に名前、第二引数にパラメーターを入れる -->
       <form method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
         @csrf
