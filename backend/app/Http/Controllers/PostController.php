@@ -7,13 +7,21 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
+use App\Http\Requests\EditPost;
+use App\Models\Like;
 
 class PostController extends Controller
 {
+    // 以下はログインしなくても一覧が見れる時に必要？
+    // public function __construct()
+    // {
+    //   $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
+    // }
+
     public function index()
     {
       //$postsに、Postモデルのallメソッドでpostデータを全て取得
-      $posts = Post::all();
+      $posts = Post::withCount('likes')->get();
 
       //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
       //テンプレートのファイル名
@@ -66,7 +74,7 @@ class PostController extends Controller
 
     }
     //編集機能追加
-    public function edit(int $id, Request $request )
+    public function edit(int $id, EditPost $request )
     {
       //TODO バリデーション
       //TODO 編集したいpostのデータを取得
@@ -103,5 +111,30 @@ class PostController extends Controller
       //postsテーブルデータをテンプレートに渡す
       'posts' => $posts,
       ]);
+    }
+
+    //引数のIDに紐づくlikrにする
+    public function like($id)
+    {
+      //ボタンを押した時にいいね数が追加
+      Like::create([
+        'post_id' => $id,
+        'user_id' => Auth::id(),
+
+      ]);
+      // 以下はログインしなくても一覧が見れる時に必要？
+      // session()->flash('success', 'You Liked the Reply.');
+      return redirect()->back();
+    }
+
+    public function unlike($id)
+    {
+      //ボタンを押した時にいいね数が減少
+      $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
+      $like->delete();
+      // 以下はログインしなくても一覧が見れる時に必要？
+      // session()->flash('success', 'You Unliked the Reply.');
+  
+      return redirect()->back();
     }
 }

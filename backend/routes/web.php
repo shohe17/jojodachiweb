@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+// use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 // use Illuminate\Routing\Route;
@@ -35,11 +36,13 @@ Route::group(['middleware' => 'auth'], function(){
 
   //deleteのルーティング、データ送信
   Route::post('posts/delete/{id}', [PostController::class, 'delete']);
-  //名前指定が必要そうな場合に追加する
-  // ->name('delete.edit');
 
   //mypageのルーティング
   Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
+
+  //like機能
+  Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
+  Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');
 
 });
 Auth::routes();
