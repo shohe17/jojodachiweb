@@ -41,4 +41,20 @@
       </div>
     </div>
   </div>
+  <style>
+      .box-container {
+        width: 100px;
+        height: 100px;
+        background: #ddd;
+        margin-bottom: 5px;
+      }
+    </style>
+
+    <div class="box-container">
+      <div class="bg-success w-50 h-50 pt-3">たこ</div>
+    </div>
+    <div class="box-container">
+      <div class="bg-warning w-75 h-50 my-5 mx-5 pt-5">たこ</div>
+
+    </div>
 @endsection
