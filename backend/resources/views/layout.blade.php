@@ -29,27 +29,30 @@
 </head>
 <body>
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info text-white scrolling-navbar">
-    <a class="navbar-brand" href="/">ホームページ</a>
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-info text-white scrolling-navbar h5">
+    <a class="navbar-brand pl-2" href="/">ホーム</a>
+    <!-- ハンバーガーボタン作成と条件指定 -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
       <ul class="navbar-nav mr-auto">
+      @if ($page === 'index')
         <li class="nav-item">
           <a class="nav-link" href="{{ route ('posts.mypage') }}">マイページ<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route ('posts.create') }}">投稿ページ</a>
+          <a class="nav-link" href="{{ route ('posts.create') }}">新規投稿</a>
         </li>
-      </ul>
+      @endif
+      </ul>   
 
       <!-- TODO if文でホームページの時のみ検索エンジンを表示させるようにする -->
+      @if ($page === 'index')
       <div class="my-navbar-control">
-        <textarea class="mr-4" name="検索" id="" cols="30" rows="1" placeholder="キーワードで検索"></textarea>
+        <textarea class="mr-4 rounded" name="検索" id="" cols="30" rows="1" placeholder="キーワードで検索"></textarea>
       </div>
-
+      @endif
       <div class="my-navbar-control">
         <!-- ログインしていた場合はユーザーネームとログアウトボタンを表示させる -->
         <!-- authクラスのcheckメソッドでログインしてるかどうか確認 -->

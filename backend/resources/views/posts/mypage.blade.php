@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['page' => 'mypage'])
 @section('content')
 <!-- 左に画像表示、右に投稿、フォロー、フォロワー数 
 ユーザー名

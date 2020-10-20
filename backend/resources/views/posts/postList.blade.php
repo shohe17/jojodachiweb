@@ -1,5 +1,7 @@
+@if ($page === 'mypage')
 <div class="container" style="height:300px;">
 </div>
+@endif
 <div class="container" style="height:1000px;">
     <div class="row mt-5 pt-5">             
     @foreach($posts as $post)
