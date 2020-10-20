@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['page' => 'register'])
 
 @section('content')
   <div class="container mt-5">

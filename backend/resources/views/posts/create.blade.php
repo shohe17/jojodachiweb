@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['page' => 'create'])
 @section('content')
 
   <div class="container" sryle="height:1300px;">

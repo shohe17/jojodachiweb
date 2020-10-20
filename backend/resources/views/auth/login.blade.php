@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['page' => 'login'])
 
 @section('content')
   <div class="container pt-5">
