@@ -48,11 +48,17 @@
       </ul>   
 
       <!-- TODO if文でホームページの時のみ検索エンジンを表示させるようにする -->
+
       @if ($page === 'index')
-      <div class="my-navbar-control">
-        <textarea class="mr-4 rounded" name="検索" id="" cols="30" rows="1" placeholder="キーワードで検索"></textarea>
-      </div>
+      <form action="{{ route('posts.search') }}" method="post" class="d-flex justify-content-center form-sm active-cyan-2 mr-3">
+        @csrf
+        <input class="form-control form-control-sm w-75" type="text" placeholder="キーワード入力" aria-label="Search" name="search">
+        <button type="submit">
+          <i class="fas fa-search"></i>
+        </button> 
+      </form>
       @endif
+
       <div class="my-navbar-control">
         <!-- ログインしていた場合はユーザーネームとログアウトボタンを表示させる -->
         <!-- authクラスのcheckメソッドでログインしてるかどうか確認 -->

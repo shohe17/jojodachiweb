@@ -137,4 +137,21 @@ class PostController extends Controller
   
       return redirect()->back();
     }
+
+    public function search(Request $request)
+    {
+      //TODOバリデーション
+      //データ受け取り
+      $request->search;
+      //データ検索
+      $posts = Post::where('title', 'like', "%$request->search%")->get();
+      //データ表示
+      //リダイレクト
+      return view('posts/index', [
+        //posutsテーブルデータをテンプレートに渡す
+        'posts' => $posts,
+      ]);
+      
+
+    }
 }
