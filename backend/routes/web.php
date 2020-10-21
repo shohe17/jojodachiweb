@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function(){
   //like機能
   Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
   Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');
+  //検索機能
+  Route::post('posts/search', [PostController::class, 'search'])->name('posts.search');
 
 });
 Auth::routes();
