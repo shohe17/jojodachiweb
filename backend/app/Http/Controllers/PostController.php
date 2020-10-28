@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Createpost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Requests\EditPost;
+use App\Models\Comment;
 use App\Models\Like;
 
 class PostController extends Controller
@@ -17,14 +19,12 @@ class PostController extends Controller
     // {
     //   $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
     // }
-
+    //一覧表示機能
     public function index()
     {
-      //$postsに、Postモデルのallメソッドでpostデータを全て取得
+      // withcountで引数の値を数え、getで表示させる
       $posts = Post::withCount('likes')->get();
-
-      //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
-      //テンプレートのファイル名
+      //view関数でテンプレートに取得したデータを渡した結果を返却
       //viesフォルダのなかのファイルを返してくれる役割
       return view('posts/index', [
         //posutsテーブルデータをテンプレートに渡す
@@ -77,12 +77,11 @@ class PostController extends Controller
     public function edit(int $id, EditPost $request )
     {
       //TODO バリデーション
-      //TODO 編集したいpostのデータを取得
-      $post = Post::find($id);      
-
-      //TODO 変更内容をdbに保存
+      //引数で渡されたidをもってるポストテーブルのデータを読み込み
+      $post = Post::find($id); 
+      
       $post->title = $request->title;
-      // $post->image_at = $request->image_at;
+      //変更内容をdbに保存
       $post->save();
       //マイページに移動
       return redirect()->route('posts.mypage');
@@ -91,9 +90,8 @@ class PostController extends Controller
     public function delete (int $id, Request $request)
     {
       //データ受け取り、削除処理
-      
       $post = Post::find($id); 
-      //  Post::find($request->id)
+      
       $post->id = $request->id;
       $post->delete();
        
@@ -151,7 +149,39 @@ class PostController extends Controller
         //posutsテーブルデータをテンプレートに渡す
         'posts' => $posts,
       ]);
-      
+    }
 
+    public function showComment(Post $posts, int $id) 
+    {
+      //Postクラスのインスタンス
+      $posts = Post::find($id);
+      $posts->load('comments');
+  
+      return view('posts/comment', [
+        'posts' => $posts,
+      ]);
+    }
+
+    public function createComment(Request $request)
+    {
+      // $savedata = [
+      //   'post_id' => $request->post_id,
+      //   'user_id' => $request->user_id,
+      //   'comment' => $request->comment,
+      // ];
+
+      //TODOバリデーション
+      //インスタンス作成
+      $comment = new Comment();
+      $savedata = $request->only($comment->getFillable());
+      
+      //リクエストデータを受け取り
+      // $comment->comment = $request->comment;
+      //データ保存 fill関数は引数でcommentmodelの$fiallableデータを保存？
+      // $comment->fill($savedata)->save();
+      $comment = $comment->create($savedata);
+      
+      //データ送信元のページへ移動
+      return redirect()->back();
     }
 }

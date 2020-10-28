@@ -78,17 +78,6 @@
           </div>
         @endif
       </div>
-        <!-- <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-twitter"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-instagram"></i></a>
-        </li>
-      </ul> -->
     </div>
   </nav>
 </header>
@@ -99,8 +88,8 @@
   @if(Auth::check())
     <script>
       document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        document.getElementById('logout-form').submit();
+      event.preventDefault();
+      document.getElementById('logout-form').submit();
       });
     </script>
   @endif

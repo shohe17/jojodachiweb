@@ -10,9 +10,17 @@ class Post extends Model
 {
   public function likes()
   {
-      //このクラスは多くのlikesをもっている
+      //このクラスは多くのlikeをもっている
       // return $this->hasMany('App\Models\Like');
       return $this->hasMany(Like::class, 'post_id');
+
+  } 
+
+  public function comments()
+  {
+      //このクラスは多くのcommentをもっている
+      // return $this->hasMany('App\Models\Like');
+      return $this->hasMany(Comment::class, 'post_id', 'id');
 
   } 
 

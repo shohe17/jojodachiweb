@@ -1,5 +1,6 @@
-tako {
-  color: read;
+.post-img {
+  object-fit: contain;
   background-color: black;
-  padding-left: 50%;
+  height: 300px;
+  width: 100%;
 }

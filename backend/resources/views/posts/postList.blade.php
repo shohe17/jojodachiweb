@@ -8,7 +8,7 @@
       <div class="col-lg-4 col-md-12">
         <div class="card">
           <!-- Card image -->
-          <img class="card-img-top" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
+          <img class="card-img-top post-img" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
             <div class="list-group">
               <div href="{{ route('posts.index', ['id' => $post->id]) }}" class="list-group-item">
                 {{ $post->title }}
@@ -17,14 +17,12 @@
           <div class="rounded-bottom lighten-3 text-center pt-3">
             <ul class="list-unstyled list-inline">              
               <li class="list-inline-item pr-2 grey-text"><i class="far fa-clock pr-1" ></i>{{ $post->created_at->format('Y年m月d日') }}</li>
-              <li class="list-inline-item pr-2"><a href="#" class="grey-text"><i class="far fa-comments pr-1"></i>12</a></li>
-              
+              <li class="list-inline-item pr-2"><a href="{{ route('posts.comment', ['id' => $post->id]) }}"" class="grey-text"><i class="far fa-comments pr-1"></i>12</a></li>              
               @if($post->is_liked_by_auth_user())
                 <a href="{{ route('post.unlike', ['id' => $post->id]) }}" class="far fa-heart pr-1">{{ $post->likes->count() }}</a>
               @else
                 <a href="{{ route('post.like', ['id' => $post->id]) }}" class="far fa-heart pr-1">{{ $post->likes->count() }}</a>
               @endif
-              
             </ul>
             @if ($page === 'mypage')
             <div class="text-right d-flex justify-content-center">
