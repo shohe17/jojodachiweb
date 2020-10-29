@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateComment;
 use App\Http\Requests\Createpost;
 use App\Models\Post;
 use App\Models\User;
@@ -166,7 +167,7 @@ class PostController extends Controller
       ]);
     }
 
-    public function createComment(Request $request)
+    public function createComment(CreateComment $request)
     {
       // $savedata = [
       //   'post_id' => $request->post_id,

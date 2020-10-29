@@ -28,7 +28,11 @@
     </div>
     <div class="col-md-7">
       <div class="row">
-      @if($errors->any())
+         <form method="post" action="{{ route('posts.comment', ['id' => $posts->id ]) }}" enctype="multipart/form-data">
+                     <!-- "{{ route('posts.edit', ['id' => $posts->id ]) }}" -->
+          @csrf
+          <div class="col-12 form-group">
+          @if($errors->any())
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $message)
@@ -36,11 +40,7 @@
               @endforeach
             </ul>
           </div>
-        @endif
-         <form method="post" action="{{ route('posts.comment', ['id' => $posts->id ]) }}" enctype="multipart/form-data">
-                     <!-- "{{ route('posts.edit', ['id' => $posts->id ]) }}" -->
-          @csrf
-          <div class="col-12 form-group">
+          @endif
             <h5 for="title" >コメント入力</h5>
             
             <textarea rows="4" name="comment" id="comment" class="form-control col-11"></textarea>
