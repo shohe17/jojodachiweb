@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('posts/search', [PostController::class, 'search'])->name('posts.search');
 
   //コメント機能Route::get
-  Route::get('posts/{id}/comment', [PostController::class, 'showComment'])->name('posts.comment');
+  Route::get('posts/{id}/comment', [PostController::class, 'showCommentForm'])->name('posts.comment');
   Route::post('posts/{id}/comment', [PostController::class, 'createComment']);
 
 });

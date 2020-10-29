@@ -24,6 +24,8 @@ class PostController extends Controller
     {
       // withcountで引数の値を数え、getで表示させる
       $posts = Post::withCount('likes')->get();
+      
+      // $posts = Post::withCount('comments')->get();
       //view関数でテンプレートに取得したデータを渡した結果を返却
       //viesフォルダのなかのファイルを返してくれる役割
       return view('posts/index', [
@@ -45,7 +47,6 @@ class PostController extends Controller
       //画像をフォルダに保存
       $user_id = 1;
       $path = $request->image->store("public/posts/$user_id");
-
       //dbにユーザーが投稿した内容を保存
       $post = new Post();
       $post->title = $request->title;
@@ -67,7 +68,7 @@ class PostController extends Controller
       $post = Post::find($id);
       //editbladeにルーティング
       //第一引数に指定されたファイルを返す
-      //第二引数は渡す変数を指定、キー（post）が変数の名前
+      //第二引数はs渡す変数を指定、キー（post）が変数の名前
       return view('posts/edit', [
         'post' => $post,
       ]);
@@ -89,12 +90,12 @@ class PostController extends Controller
 
     public function delete (int $id, Request $request)
     {
-      //データ受け取り、削除処理
-      $post = Post::find($id); 
-      
+      //postクラスのインスタンスの中の選択されたidをもつデータ受け取る
+      $post = Post::find($id);
+      //$postのidはリクエストされたidになる
       $post->id = $request->id;
+      //削除処理
       $post->delete();
-       
       //マイページに移動
       return redirect()->route('posts.mypage');
     }
@@ -102,12 +103,16 @@ class PostController extends Controller
     public function ShowMypageForm()
     {
       //ログインユーザーがもつpostsのみを取得させる
+      // $user = User::get();
       $posts = Auth::user()->posts()->get();
+      
       //view関数の第一引数でファイル名を指定
       //viewsフォルダのなかのファイルを返してくれる役割
       return view('posts/mypage', [
       //postsテーブルデータをテンプレートに渡す
       'posts' => $posts,
+      // 'name' => $user,
+
       ]);
     }
 
@@ -151,12 +156,11 @@ class PostController extends Controller
       ]);
     }
 
-    public function showComment(Post $posts, int $id) 
+    public function showCommentForm(Post $posts, int $id) 
     {
       //Postクラスのインスタンス
       $posts = Post::find($id);
       $posts->load('comments');
-  
       return view('posts/comment', [
         'posts' => $posts,
       ]);
@@ -174,7 +178,6 @@ class PostController extends Controller
       //インスタンス作成
       $comment = new Comment();
       $savedata = $request->only($comment->getFillable());
-      
       //リクエストデータを受け取り
       // $comment->comment = $request->comment;
       //データ保存 fill関数は引数でcommentmodelの$fiallableデータを保存？

@@ -1,12 +1,31 @@
 @if ($page === 'mypage')
-<div class="container" style="height:300px;">
+<div class="container mt-5 pt-5" style="height:350px;">
+  <div class="row">
+    <div class="col-5">
+      画像
+    </div>
+    <div class="col-3">
+      名前
+    </div>
+    <div class="col-3">
+      設定ボタン
+    </div>
+    <div class="col-11">
+      投稿数、フォロー数、フォロワー数
+    </div>
+    <div class="col-11">
+      説明文
+    </div>
+
+  </div>
+
 </div>
 @endif
 <div class="container" style="height:1000px;">
     <div class="row mt-5 pt-5">             
     @foreach($posts as $post)
       <div class="col-lg-4 col-md-12">
-        <div class="card">
+        <div class="card mb-3">
           <!-- Card image -->
           <img class="card-img-top post-img" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
             <div class="list-group">
@@ -17,7 +36,7 @@
           <div class="rounded-bottom lighten-3 text-center pt-3">
             <ul class="list-unstyled list-inline">              
               <li class="list-inline-item pr-2 grey-text"><i class="far fa-clock pr-1" ></i>{{ $post->created_at->format('Y年m月d日') }}</li>
-              <li class="list-inline-item pr-2"><a href="{{ route('posts.comment', ['id' => $post->id]) }}"" class="grey-text"><i class="far fa-comments pr-1"></i>12</a></li>              
+              <li class="list-inline-item pr-2"><a href="{{ route('posts.comment', ['id' => $post->id]) }}"" class="grey-text"><i class="far fa-comments pr-1"></i>{{ $post->comments->count() }}</a></li>              
               @if($post->is_liked_by_auth_user())
                 <a href="{{ route('post.unlike', ['id' => $post->id]) }}" class="far fa-heart pr-1">{{ $post->likes->count() }}</a>
               @else
