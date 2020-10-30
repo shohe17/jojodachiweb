@@ -20,13 +20,10 @@ class PostController extends Controller
     // {
     //   $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
     // }
-    //一覧表示機能
     public function index()
     {
       // withcountで引数の値を数え、getで表示させる
-      $posts = Post::withCount('likes')->get();
-      
-      // $posts = Post::withCount('comments')->get();
+      $posts = Post::withCount('likes')->orderBy('created_at', 'desc')->get();
       //view関数でテンプレートに取得したデータを渡した結果を返却
       //viesフォルダのなかのファイルを返してくれる役割
       return view('posts/index', [
