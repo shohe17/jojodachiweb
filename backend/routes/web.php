@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function(){
   //mypageのルーティング
   Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
 
+  Route::get('posts/{user_name}', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
   //like機能
   Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
   Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');

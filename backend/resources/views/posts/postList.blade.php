@@ -1,26 +1,3 @@
-@if ($page === 'mypage')
-<div class="container mt-5 pt-5" style="height:350px;">
-  <div class="row">
-    <div class="col-5">
-      画像
-    </div>
-    <div class="col-3">
-      名前
-    </div>
-    <div class="col-3">
-      設定ボタン
-    </div>
-    <div class="col-11">
-      投稿数、フォロー数、フォロワー数
-    </div>
-    <div class="col-11">
-      説明文
-    </div>
-
-  </div>
-
-</div>
-@endif
 <div class="container" style="height:1000px;">
     <div class="row mt-5 pt-5">             
     @foreach($posts as $post)

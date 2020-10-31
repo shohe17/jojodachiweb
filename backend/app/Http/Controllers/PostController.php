@@ -28,7 +28,7 @@ class PostController extends Controller
       //viesフォルダのなかのファイルを返してくれる役割
       return view('posts/index', [
         //posutsテーブルデータをテンプレートに渡す
-        'posts' => $posts,
+        'posts' => $posts,        
       ]);
     }
 
@@ -44,6 +44,8 @@ class PostController extends Controller
       //確認 タイトルだけが投稿された時のバリデーション
       //画像をフォルダに保存
       $user_id = 1;
+      //strageのappの引数にもらってるデータを保存
+      
       $path = $request->image->store("public/posts/$user_id");
       //dbにユーザーが投稿した内容を保存
       $post = new Post();
@@ -76,6 +78,7 @@ class PostController extends Controller
     public function edit(int $id, EditPost $request )
     {
       //TODO バリデーション
+      dd($id);
       //引数で渡されたidをもってるポストテーブルのデータを読み込み
       $post = Post::find($id); 
       
@@ -98,19 +101,17 @@ class PostController extends Controller
       return redirect()->route('posts.mypage');
     }
 
-    public function ShowMypageForm()
+    public function ShowMypageForm(string $name)
     {
-      //ログインユーザーがもつpostsのみを取得させる
-      // $user = User::get();
-      $posts = Auth::user()->posts()->get();
-      
+      //withでリレーション関係にあるデータをとってくる
+      $user = User::where('name', $name)->with('posts')->first();
+      //ユーザー名からユーザーデータを引っ張る
       //view関数の第一引数でファイル名を指定
       //viewsフォルダのなかのファイルを返してくれる役割
       return view('posts/mypage', [
       //postsテーブルデータをテンプレートに渡す
-      'posts' => $posts,
-      // 'name' => $user,
-
+      'posts' => $user->posts,
+      'user' => $user,
       ]);
     }
 
@@ -135,7 +136,6 @@ class PostController extends Controller
       $like->delete();
       // 以下はログインしなくても一覧が見れる時に必要？
       // session()->flash('success', 'You Unliked the Reply.');
-  
       return redirect()->back();
     }
 
@@ -166,13 +166,6 @@ class PostController extends Controller
 
     public function createComment(CreateComment $request)
     {
-      // $savedata = [
-      //   'post_id' => $request->post_id,
-      //   'user_id' => $request->user_id,
-      //   'comment' => $request->comment,
-      // ];
-
-      //TODOバリデーション
       //インスタンス作成
       $comment = new Comment();
       $savedata = $request->only($comment->getFillable());
