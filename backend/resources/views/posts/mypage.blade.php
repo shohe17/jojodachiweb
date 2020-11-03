@@ -9,7 +9,10 @@
       {{ $user->name }}
     </div>
     <div class="col-3">
-      設定ボタン
+      <form method="post" action="{{ route ('posts.follow', ['id' => $user->id]) }}">
+        @csrf
+        <button class="btn btn-primary btn-sm" type="submit" value="フォロー">フォロー</button>
+      </form>      
     </div>
     <div class="col-11">
       投稿数、フォロー数、フォロワー数

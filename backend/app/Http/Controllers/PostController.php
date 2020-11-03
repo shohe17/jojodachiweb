@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Requests\EditPost;
 use App\Models\Comment;
+use App\Models\follow;
 use App\Models\Like;
 
 class PostController extends Controller
@@ -55,7 +56,6 @@ class PostController extends Controller
       $post->user_id = $user_id;
       //確認、青文字はクラスを呼び出している？
       Auth::user()->posts()->save($post);
-
       //一覧表示にリダイレクト
       return redirect()->route('posts.index');
 
@@ -78,7 +78,6 @@ class PostController extends Controller
     public function edit(int $id, EditPost $request )
     {
       //TODO バリデーション
-      dd($id);
       //引数で渡されたidをもってるポストテーブルのデータを読み込み
       $post = Post::find($id); 
       
@@ -178,4 +177,18 @@ class PostController extends Controller
       //データ送信元のページへ移動
       return redirect()->back();
     }
+
+     public function follow(int $id)
+     {
+      // 2. ログインしてるユーザーのI’dを取得する
+      $follower = Auth::user();
+
+      
+      // 3. 1と2をfollowerテーブルに保存
+      $follower->follow($id);
+
+      // 4.画面遷移
+      return back();
+     }
+     
 }

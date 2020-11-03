@@ -38,8 +38,6 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('posts/delete/{id}', [PostController::class, 'delete']);
 
   //mypageのルーティング
-  Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
-
   Route::get('posts/{user_name}', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
   //like機能
   Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
@@ -50,6 +48,20 @@ Route::group(['middleware' => 'auth'], function(){
   //コメント機能Route::get
   Route::get('posts/{id}/comment', [PostController::class, 'showCommentForm'])->name('posts.comment');
   Route::post('posts/{id}/comment', [PostController::class, 'createComment']);
+
+   //フォロー機能
+  Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
+   // ボタン作成
+   //ルーティング
+   //テーブル作成
+   //メソッド作成
+   //- メソッドはmypageからユーザーデータを持ってくる
+   //- 保存処理
+   //- mypageにリダイレクト
+   //bladeページ
+   //- フォロワー数を表示する（ここもデータ撮ってくる必要ある）
+   //- if文で自分のページならば設定ボタンを設置する、そうでなければフォローボタンを設置する
+   //リレーション設定
 
 });
 Auth::routes();
