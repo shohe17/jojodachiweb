@@ -38,8 +38,6 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('posts/delete/{id}', [PostController::class, 'delete']);
 
   //mypageのルーティング
-  Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
-
   Route::get('posts/{user_name}', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
   //like機能
   Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
@@ -50,6 +48,10 @@ Route::group(['middleware' => 'auth'], function(){
   //コメント機能Route::get
   Route::get('posts/{id}/comment', [PostController::class, 'showCommentForm'])->name('posts.comment');
   Route::post('posts/{id}/comment', [PostController::class, 'createComment']);
+
+   //フォロー機能
+  Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
+  Route::post('posts/unfollow/{id}', [PostController::class, 'unfollow'])->name('posts.unfollow');
 
 });
 Auth::routes();

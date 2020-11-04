@@ -11,15 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Requests\EditPost;
 use App\Models\Comment;
+use App\Models\follow;
 use App\Models\Like;
 
 class PostController extends Controller
 {
-    // 以下はログインしなくても一覧が見れる時に必要？
-    // public function __construct()
-    // {
-    //   $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
-    // }
     public function index()
     {
       // withcountで引数の値を数え、getで表示させる
@@ -55,7 +51,6 @@ class PostController extends Controller
       $post->user_id = $user_id;
       //確認、青文字はクラスを呼び出している？
       Auth::user()->posts()->save($post);
-
       //一覧表示にリダイレクト
       return redirect()->route('posts.index');
 
@@ -78,7 +73,6 @@ class PostController extends Controller
     public function edit(int $id, EditPost $request )
     {
       //TODO バリデーション
-      dd($id);
       //引数で渡されたidをもってるポストテーブルのデータを読み込み
       $post = Post::find($id); 
       
@@ -124,8 +118,6 @@ class PostController extends Controller
         'user_id' => Auth::id(),
 
       ]);
-      // 以下はログインしなくても一覧が見れる時に必要？
-      // session()->flash('success', 'You Liked the Reply.');
       return redirect()->back();
     }
 
@@ -134,8 +126,6 @@ class PostController extends Controller
       //ボタンを押した時にいいね数が減少
       $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
       $like->delete();
-      // 以下はログインしなくても一覧が見れる時に必要？
-      // session()->flash('success', 'You Unliked the Reply.');
       return redirect()->back();
     }
 
@@ -178,4 +168,25 @@ class PostController extends Controller
       //データ送信元のページへ移動
       return redirect()->back();
     }
+
+     public function follow(int $id)
+     {
+      // ログインしてるユーザーのI’dを取得する
+      $follower = Auth::user();      
+      // followerテーブルに保存
+      $follower->follow($id);     
+      // 画面遷移
+      return back();
+     }
+
+     public function unfollow(int $id)
+     {
+      //ログインしてるユーザーのidを取得する
+      $following = Auth::user();
+      //追加されているデータを削除する
+      $following->unfollow($id);
+      //画面遷移
+      return back();
+     }
+     
 }
