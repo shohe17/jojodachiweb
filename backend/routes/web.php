@@ -51,17 +51,7 @@ Route::group(['middleware' => 'auth'], function(){
 
    //フォロー機能
   Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
-   // ボタン作成
-   //ルーティング
-   //テーブル作成
-   //メソッド作成
-   //- メソッドはmypageからユーザーデータを持ってくる
-   //- 保存処理
-   //- mypageにリダイレクト
-   //bladeページ
-   //- フォロワー数を表示する（ここもデータ撮ってくる必要ある）
-   //- if文で自分のページならば設定ボタンを設置する、そうでなければフォローボタンを設置する
-   //リレーション設定
+  Route::post('posts/unfollow/{id}', [PostController::class, 'unfollow'])->name('posts.unfollow');
 
 });
 Auth::routes();

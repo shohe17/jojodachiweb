@@ -16,11 +16,6 @@ use App\Models\Like;
 
 class PostController extends Controller
 {
-    // 以下はログインしなくても一覧が見れる時に必要？
-    // public function __construct()
-    // {
-    //   $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
-    // }
     public function index()
     {
       // withcountで引数の値を数え、getで表示させる
@@ -123,8 +118,6 @@ class PostController extends Controller
         'user_id' => Auth::id(),
 
       ]);
-      // 以下はログインしなくても一覧が見れる時に必要？
-      // session()->flash('success', 'You Liked the Reply.');
       return redirect()->back();
     }
 
@@ -133,8 +126,6 @@ class PostController extends Controller
       //ボタンを押した時にいいね数が減少
       $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
       $like->delete();
-      // 以下はログインしなくても一覧が見れる時に必要？
-      // session()->flash('success', 'You Unliked the Reply.');
       return redirect()->back();
     }
 
@@ -180,14 +171,21 @@ class PostController extends Controller
 
      public function follow(int $id)
      {
-      // 2. ログインしてるユーザーのI’dを取得する
-      $follower = Auth::user();
+      // ログインしてるユーザーのI’dを取得する
+      $follower = Auth::user();      
+      // followerテーブルに保存
+      $follower->follow($id);     
+      // 画面遷移
+      return back();
+     }
 
-      
-      // 3. 1と2をfollowerテーブルに保存
-      $follower->follow($id);
-
-      // 4.画面遷移
+     public function unfollow(int $id)
+     {
+      //ログインしてるユーザーのidを取得する
+      $following = Auth::user();
+      //追加されているデータを削除する
+      $following->unfollow($id);
+      //画面遷移
       return back();
      }
      
