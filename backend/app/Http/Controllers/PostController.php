@@ -36,7 +36,6 @@ class PostController extends Controller
 
     public function create(Createpost $request)
     {
-      // TODO バリデーション後で書く
       //確認 タイトルだけが投稿された時のバリデーション
       //画像をフォルダに保存
       $user_id = 1;
@@ -49,9 +48,9 @@ class PostController extends Controller
       //第一引数を第二引数に置き換える
       $post->image_at = str_replace('public/', '', $path);
       $post->user_id = $user_id;
-      //確認、青文字はクラスを呼び出している？
+      //ログインユーザーのpostデータを保存
       Auth::user()->posts()->save($post);
-      //一覧表示にリダイレクト
+      //画面遷移
       return redirect()->route('posts.index');
 
     }
@@ -191,10 +190,21 @@ class PostController extends Controller
 
      public function ShowUsereditForm(string $name)
      {
+      //編集対象のデータを受け取る
       $user = User::where('name', $name)->first();      
+      //画面遷移
       return view('posts/useredit', [
         'user' => $user,
         ]);
+     }
+
+     public function editMypage()
+     {
+      //TODOバリデーション
+      //画像投稿処理
+      //画像と紹介文定義
+      //画像と紹介文保存
+      //画面遷移
      }
      
 }

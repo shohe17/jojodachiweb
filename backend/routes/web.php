@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function(){
 
   //プロフィール編集
   Route::get('posts/edit/{user_name}', [PostController::class, 'ShowUsereditForm'])->name('user.edit');
-  Route::post('posts/edit/{user_name}', [PostController::class, 'ShowUsereditForm']);
+  Route::post('posts/edit/{user_name}', [PostController::class, 'editMypage']);
 });
 Auth::routes();
 
