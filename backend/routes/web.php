@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
   Route::post('posts/unfollow/{id}', [PostController::class, 'unfollow'])->name('posts.unfollow');
 
+  //プロフィール編集
+  Route::get('posts/edit/{user_name}', [PostController::class, 'ShowUsereditForm'])->name('user.edit');
+  Route::post('posts/edit/{user_name}', [PostController::class, 'ShowUsereditForm']);
 });
 Auth::routes();
 

@@ -12,11 +12,8 @@
           </ul>
         </div>
       @endif
-      <h2 class="col-12 text-info">画像投稿</h2>
-      <br>
-      <br>
-      <br>
-      <form action="{{ route('posts.create') }}" method="post" enctype="multipart/form-data">
+      <h2 class="pb-2 col-12 text-info">画像投稿</h2>
+      <form class="pl-4" action="{{ route('posts.create') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div>
           <label for="title" >投稿の説明</label>

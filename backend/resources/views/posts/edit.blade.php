@@ -11,12 +11,9 @@
           </ul>
         </div>
       @endif
-      <h2 class="col-12 text-info">投稿編集</h2>
-      <br>
-      <br>
-      <br>
+      <h2 class="pb-2 col-12 text-info">投稿編集</h2>
       <!-- 第一引数に名前、第二引数にパラメーターを入れる -->
-      <form method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
+      <form class="pl-4" method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
         @csrf
         <div>
           <label for="title" >投稿の説明</label>

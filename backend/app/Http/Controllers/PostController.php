@@ -188,5 +188,13 @@ class PostController extends Controller
       //画面遷移
       return back();
      }
+
+     public function ShowUsereditForm(string $name)
+     {
+      $user = User::where('name', $name)->first();      
+      return view('posts/useredit', [
+        'user' => $user,
+        ]);
+     }
      
 }
