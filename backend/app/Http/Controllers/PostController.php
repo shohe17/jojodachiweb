@@ -39,8 +39,7 @@ class PostController extends Controller
       //確認 タイトルだけが投稿された時のバリデーション
       //画像をフォルダに保存
       $user_id = 1;
-      //strageのappの引数にもらってるデータを保存
-      
+      //strageのappの引数でもらってるディレクトリにデータを保存
       $path = $request->image->store("public/posts/$user_id");
       //dbにユーザーが投稿した内容を保存
       $post = new Post();
@@ -190,18 +189,34 @@ class PostController extends Controller
 
      public function ShowUsereditForm(string $name)
      {
-      //編集対象のデータを受け取る
-      $user = User::where('name', $name)->first();      
+      //編集対象のデータを受け取る（）
+      $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
+      $user->load('follows');
+      // dd($user);
       //画面遷移
       return view('posts/useredit', [
         'user' => $user,
         ]);
      }
 
-     public function editMypage()
+     public function editMypage($request)
      {
       //TODOバリデーション
-      //画像投稿処理
+      dd($request);
+      //画像保存処理
+      $user_id = 1;
+      //strageのappの引数でもらってるディレクトリにデータを保存
+      $path = $request->image->store("public/user/$user_id");
+      //dbにユーザーが投稿した内容を保存
+      $post = new Userdata();
+      $post->biography = $request->biography;
+      //第一引数を第二引数に置き換える
+      $post->image_at = str_replace('public/', '', $path);
+      $post->user_id = $user_id;
+      //ログインユーザーのpostデータを保存
+      Auth::user()->posts()->save($post);
+      //画面遷移
+      return redirect()->route('posts.mypage');
       //画像と紹介文定義
       //画像と紹介文保存
       //画面遷移
