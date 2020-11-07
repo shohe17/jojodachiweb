@@ -19,6 +19,8 @@ class UsersTableSeeder extends Seeder
       DB::table('users')->insert([
         'name' => 'test',
         'email' => 'test@gmail.com',
+        'image_at' => '1',
+        'biography' => 'aaa',
         //bcrypt関数は()内の暗号化
         'password' => bcrypt('test1234'),
         //Carbon::now();は挿入時の時間

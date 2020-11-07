@@ -3,7 +3,7 @@
 <div class="container mt-5 pt-5" style="width:1000px;">
   <div class="row" ">
     <div class="col-5">
-      ここに画像
+      <img class="card-img-top post-img" src="{{ asset('storage/' . $user->image_at) }}" alt="Profile">
     </div>
     <div class="col-6">
         <h3>
@@ -37,12 +37,12 @@
         {{ $user->follows->count() }}
         </a>
         <a href="#" class="col-2">
-          1
+        {{ $user->followers->count() }}
         </a>
       </div>        
     </div>
     <div class="col-12">
-      ここに紹介文が入ります
+    {{ $user->biography }}
     </div>
 </div>
 @include('posts.postList', ['page' => 'mypage'])

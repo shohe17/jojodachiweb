@@ -21,9 +21,9 @@
           <label for="image"></label>
         </div>
         <div>
-          <label for="title">自己紹介文</label>
+          <label for="biography">自己紹介文</label>
           <br>
-          <textarea rows="5" cols="50" name="title" id="title"></textarea>
+          <textarea rows="5" cols="50" name="biography" id="biography"></textarea>
         </div>
         <div>
           <button type="submit" class="btn btn-info">送信する</button>

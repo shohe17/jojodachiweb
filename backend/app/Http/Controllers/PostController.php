@@ -199,27 +199,19 @@ class PostController extends Controller
         ]);
      }
 
-     public function editMypage($request)
+     public function editMypage(string $name, Request $request)
      {
       //TODOバリデーション
-      dd($request);
-      //画像保存処理
-      $user_id = 1;
       //strageのappの引数でもらってるディレクトリにデータを保存
-      $path = $request->image->store("public/user/$user_id");
+      $path = $request->image->store("public/user");
       //dbにユーザーが投稿した内容を保存
-      $post = new Userdata();
-      $post->biography = $request->biography;
-      //第一引数を第二引数に置き換える
-      $post->image_at = str_replace('public/', '', $path);
-      $post->user_id = $user_id;
-      //ログインユーザーのpostデータを保存
-      Auth::user()->posts()->save($post);
+      $user = User::where('name', $name)->first();
+      $user->image_at = str_replace('public/', '', $path);
+      $user->biography = $request->biography;
+      $user->save();
       //画面遷移
-      return redirect()->route('posts.mypage');
-      //画像と紹介文定義
-      //画像と紹介文保存
-      //画面遷移
+      return redirect()->route('posts.mypage', ['user_name' => $name]);
+
      }
      
 }
