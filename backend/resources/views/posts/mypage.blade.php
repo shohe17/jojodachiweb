@@ -9,7 +9,10 @@
         <h3>
           {{ $user->name }}
         </h3> 
-        @if (false)
+        @if ($user->name === Auth::user()->name)
+          <!-- 自分のユーザーページの場合設定ボタンが出る -->
+          <a href="{{ route('user.edit', ['user_name' => $user->name]) }}" class="btn btn-primary btn-sm">プロフィール設定</a>
+          @else
             <!-- 自分以外のユーザーページのときはフォローボタンがでる -->
             @if (auth()->user()->isFollowing($user->id))
               <form method="post" action="{{ route ('posts.unfollow', ['id' => $user->id]) }}">
@@ -22,9 +25,6 @@
                 <button class="btn btn-primary btn-sm" type="submit" value="フォロー">フォローする</button>
               </form>  
             @endif
-            @else
-            <!-- 自分のユーザーページの場合設定ボタンが出る -->
-            <a href="{{ route('user.edit', ['user_name' => $user->name]) }}" class="btn btn-primary btn-sm">プロフィール設定</a>
           @endif
       <div>
         投稿 フォロー フォロワー
