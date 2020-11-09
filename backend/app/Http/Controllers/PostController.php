@@ -36,12 +36,10 @@ class PostController extends Controller
 
     public function create(Createpost $request)
     {
-      // TODO バリデーション後で書く
       //確認 タイトルだけが投稿された時のバリデーション
       //画像をフォルダに保存
       $user_id = 1;
-      //strageのappの引数にもらってるデータを保存
-      
+      //strageのappの引数でもらってるディレクトリにデータを保存
       $path = $request->image->store("public/posts/$user_id");
       //dbにユーザーが投稿した内容を保存
       $post = new Post();
@@ -49,9 +47,9 @@ class PostController extends Controller
       //第一引数を第二引数に置き換える
       $post->image_at = str_replace('public/', '', $path);
       $post->user_id = $user_id;
-      //確認、青文字はクラスを呼び出している？
+      //ログインユーザーのpostデータを保存
       Auth::user()->posts()->save($post);
-      //一覧表示にリダイレクト
+      //画面遷移
       return redirect()->route('posts.index');
 
     }
@@ -191,10 +189,29 @@ class PostController extends Controller
 
      public function ShowUsereditForm(string $name)
      {
-      $user = User::where('name', $name)->first();      
+      //編集対象のデータを受け取る（）
+      $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
+      $user->load('follows');
+      // dd($user);
+      //画面遷移
       return view('posts/useredit', [
         'user' => $user,
         ]);
+     }
+
+     public function editMypage(string $name, Request $request)
+     {
+      //TODOバリデーション
+      //strageのappの引数でもらってるディレクトリにデータを保存
+      $path = $request->image->store("public/user");
+      //dbにユーザーが投稿した内容を保存
+      $user = User::where('name', $name)->first();
+      $user->image_at = str_replace('public/', '', $path);
+      $user->biography = $request->biography;
+      $user->save();
+      //画面遷移
+      return redirect()->route('posts.mypage', ['user_name' => $name]);
+
      }
      
 }
