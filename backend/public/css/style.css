@@ -1,5 +1,5 @@
 .post-img {
-  object-fit: contain;
+  object-fit: cover;
   background-color: black;
   height: 300px;
   width: 100%;

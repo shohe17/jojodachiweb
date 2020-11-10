@@ -28,11 +28,8 @@
             </ul>
           </div>
           @endif
-          <h5 for="title" >コメント入力</h5>
-          
+          <h5>コメント入力</h5>
           <textarea rows="4" name="comment" id="comment" class="form-control col-12"></textarea>
-          
-          <!-- <textarea rows="5" cols="70" name="comment" id="comment"></textarea> -->
           <input type="hidden" name="user_id" value="{{ Auth::id() }}">
           <input type="hidden" name="post_id" value="{{ $posts->id }}">
         </div>

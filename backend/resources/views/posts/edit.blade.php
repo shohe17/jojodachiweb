@@ -15,14 +15,9 @@
       <!-- 第一引数に名前、第二引数にパラメーターを入れる -->
       <form class="pl-4" method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
         @csrf
-        <div>
-          <label for="title" >投稿の説明</label>
-          <br>
-          <input type="text" name="title" id="title" value="{{ old('title') ?? $post->title }}" placeholde="説明文">
-        </div>
-        <div>
-          <input type="file" id="image" name="image" value="{{ old('image') ?? $post->image_at }}">
-          <label for="image" ></label>
+        <div class="pb-3">
+          <h5>投稿の説明</h5>
+          <input type="text" style="width: 400px;" name="title" id="title" value="{{ old('title') ?? $post->title }}" placeholde="説明文">
         </div>
         <div>
           <button type="submit" class=" btn btn-info ">送信する</button>

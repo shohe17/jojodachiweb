@@ -158,12 +158,9 @@ class PostController extends Controller
       $comment = new Comment();
       $savedata = $request->only($comment->getFillable());
       //リクエストデータを受け取り
-      // $comment->comment = $request->comment;
-      //データ保存 fill関数は引数でcommentmodelの$fiallableデータを保存？
-      // $comment->fill($savedata)->save();
       $comment = $comment->create($savedata);
       
-      //データ送信元のページへ移動
+      //画面遷移
       return redirect()->back();
     }
 
