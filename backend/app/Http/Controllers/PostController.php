@@ -70,6 +70,7 @@ class PostController extends Controller
     //編集機能追加
     public function edit(int $id, EditPost $request )
     {
+      //確認 子データから親の呼び方（userのnameが必要）
       //TODO バリデーション
       //引数で渡されたidをもってるポストテーブルのデータを読み込み
       $post = Post::find($id); 
@@ -78,11 +79,12 @@ class PostController extends Controller
       //変更内容をdbに保存
       $post->save();
       //マイページに移動
-      return redirect()->route('posts.mypage');
+      return redirect()->route('mypage');
     }
 
     public function delete (int $id, Request $request)
     {
+      //確認 子データから親の呼び方（userのnameが必要）
       //postクラスのインスタンスの中の選択されたidをもつデータ受け取る
       $post = Post::find($id);
       //$postのidはリクエストされたidになる
@@ -90,7 +92,7 @@ class PostController extends Controller
       //削除処理
       $post->delete();
       //マイページに移動
-      return redirect()->route('posts.mypage');
+      return redirect()->route('mypage');
     }
 
     public function ShowMypageForm(string $name)
@@ -189,7 +191,6 @@ class PostController extends Controller
       //編集対象のデータを受け取る（）
       $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
       $user->load('follows');
-      // dd($user);
       //画面遷移
       return view('posts/useredit', [
         'user' => $user,
@@ -207,7 +208,7 @@ class PostController extends Controller
       $user->biography = $request->biography;
       $user->save();
       //画面遷移
-      return redirect()->route('posts.mypage', ['user_name' => $name]);
+      return redirect()->route('mypage', ['user_name' => $name]);
 
      }
      

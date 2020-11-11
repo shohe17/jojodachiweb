@@ -39,7 +39,7 @@
       <ul class="navbar-nav mr-auto">
       @if ($page === 'index')
         <li class="nav-item">
-          <a class="nav-link" href="{{ route ('posts.mypage', ['user_name' => Auth::user()->name]) }}">マイページ<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ route ('mypage', ['user_name' => Auth::user()->name]) }}">マイページ<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route ('posts.create') }}">新規投稿</a>

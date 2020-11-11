@@ -29,33 +29,26 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');
   Route::post('posts/create', [PostController::class, 'create']);
 
-  //editのルーティング、ページ移動
   Route::get('posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
-  //editのルーティング、データ送信
   Route::post('posts/{id}/edit', [PostController::class, 'edit']);
 
-  //deleteのルーティング、データ送信
   Route::post('posts/delete/{id}', [PostController::class, 'delete']);
 
-  //mypageのルーティング
-  Route::get('posts/{user_name}', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
-  //like機能
-  Route::get('posts/like/{id}', [PostController::class, 'like'])->name('post.like');
-  Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');
-  //検索機能
+  Route::get('posts/like/{id}', [PostController::class, 'like'])->name('posts.like');
+  Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('posts.unlike');
+
   Route::post('posts/search', [PostController::class, 'search'])->name('posts.search');
 
-  //コメント機能Route::get
   Route::get('posts/{id}/comment', [PostController::class, 'showCommentForm'])->name('posts.comment');
   Route::post('posts/{id}/comment', [PostController::class, 'createComment']);
-
-   //フォロー機能
+  
   Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
   Route::post('posts/unfollow/{id}', [PostController::class, 'unfollow'])->name('posts.unfollow');
 
-  //プロフィール編集
-  Route::get('posts/edit/{user_name}', [PostController::class, 'ShowUsereditForm'])->name('user.edit');
-  Route::post('posts/edit/{user_name}', [PostController::class, 'editMypage']);
+  Route::get('mypage/{user_name}', [PostController::class, 'ShowMypageForm'])->name('mypage');
+
+  Route::get('user/edit/{user_name}', [PostController::class, 'ShowUsereditForm'])->name('user.edit');
+  Route::post('user/edit/{user_name}', [PostController::class, 'editMypage']);
 });
 Auth::routes();
 
