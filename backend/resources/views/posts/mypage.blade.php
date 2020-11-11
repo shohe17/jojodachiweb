@@ -48,5 +48,5 @@
     </div>
     
 </div>
-@include('posts.postList', ['page' => 'mypage'])
+@include('postList', ['page' => 'mypage'])
 @endsection

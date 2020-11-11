@@ -190,6 +190,7 @@ class PostController extends Controller
      {
       //編集対象のデータを受け取る（）
       $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
+      // dd($user);
       $user->load('follows');
       //画面遷移
       return view('posts/useredit', [

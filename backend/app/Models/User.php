@@ -43,29 +43,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    //多対多のリレーション
-    public function follows()
-    {
-        return $this->belongsToMany(self::class, 'follows', 'user_id', 'followed_id');
-    }
-    //多対多のリレーション
-    public function followers()
-    {
-        return $this->belongsToMany(self::class, 'follows', 'followed_id', 'user_id');
-    }
-    //フォロー
-    public function follow(int $user_id) 
-    {
-        return $this->follows()->attach($user_id);
-    }
-    //フォローやめる
-    public function unfollow(Int $user_id)
-    {
-        return $this->follows()->detach($user_id);
-    }
-    // フォローしているか
-    public function isFollowing(Int $user_id) 
-    {
-        return (boolean) $this->follows()->where('followed_id', $user_id)->first(['followed_id']);
-    }
+   //多対多のリレーション
+   public function follows()
+   {
+       return $this->belongsToMany(self::class, 'follows', 'user_id', 'followed_id');
+   }
+   //多対多のリレーション
+   public function followers()
+   {
+       return $this->belongsToMany(self::class, 'follows', 'followed_id', 'user_id');
+   }
+   //フォロー
+   public function follow(int $user_id) 
+   {
+       return $this->follows()->attach($user_id);
+   }
+   //フォローやめる
+   public function unfollow(Int $user_id)
+   {
+       return $this->follows()->detach($user_id);
+   }
+   // フォローしているか
+   public function isFollowing(Int $user_id) 
+   {
+       return (boolean) $this->follows()->where('followed_id', $user_id)->first(['followed_id']);
+   }
 }
