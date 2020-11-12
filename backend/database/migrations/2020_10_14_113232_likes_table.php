@@ -14,30 +14,11 @@ class LikesTable extends Migration
     public function up()
     {
       Schema::create('likes', function(Blueprint $table) {
-        //自動増分する値を指定
+        //bigint型のidカラムを作成
         $table->id();
-        //整数の値を指定
-        // $table->unsignedBigInteger('user_id');
-        // $table->unsignedBigInteger('post_id');
-
-        // $table->foreign('user_id')->references('id')->on('users');
-        // $table->foreign('post_id')->references('id')->on('users');
-
+        //user_idに外部キー制約、親テーブルのデータが消されたとき子テーブルも合わせて消される
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->foreignId('post_id')->constrained()->onDelete('cascade');
-
-        //外部キー設定（関連付いたテーブルに指定したカラムがなければエラーが出る）
-        // $table->foreign('user_id')
-        //       ->references('id')
-        //       ->on('users')
-        //       //親テーブル(users)に対して更新を行うと子テーブル(likes)で同じ値を持つカラムの値も合わせて更新される
-        //       ->onDelete('cascade');
-
-        // $table->foreign('post_id')
-        //       ->references('id')
-        //       ->on('posts')
-        //       ->onDelete('cascade');
-
       });
     }
 

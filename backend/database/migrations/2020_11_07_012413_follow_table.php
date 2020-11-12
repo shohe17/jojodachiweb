@@ -15,6 +15,8 @@ class FollowTable extends Migration
     {
       Schema::create('follows', function (Blueprint $table) {
         $table->id();
+        //外部キー制約
+        //親テーブルにuser_idがない場合エラーを出す
         $table->foreignId('user_id');
         $table->foreignId('followed_id');
     });

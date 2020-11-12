@@ -13,12 +13,16 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        //テーブル作成
+        //テーブル、カラム、index作成
         Schema::create('posts', function (Blueprint $table) {
+            //型がbigintのidカラムを作成
             $table->id();
+            //型が整数
             $table->integer('user_id');
+            //型が文字列
             $table->string('title', 150);
             $table->text('image_at');
+            //post作成時の時間を指定
             $table->timestamps();
         });
     }

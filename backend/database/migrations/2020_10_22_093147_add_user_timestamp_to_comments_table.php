@@ -14,6 +14,7 @@ class AddUserTimestampToCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
+          // 確認created_at, updated_atの値を入るように設定？
           $table->timestamps();
         });
     }
