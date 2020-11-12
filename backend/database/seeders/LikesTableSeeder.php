@@ -15,12 +15,14 @@ class LikesTableSeeder extends Seeder
      */
     public function run()
     {
-      //変数に、DBのusersテーブルの最初の値を入れる
+      //usersテーブルのレコードを一つ追加する
       $user = DB::table('users')->first();
       $post = DB::table('users')->first();
-      //DBのlikesテーブルに21,22行目の値を入れる
+      //likesテーブルに21,22行目にデータを挿入
       DB::table('likes')->insert([
+        //user_id（キー）にidのみ挿入
         'user_id' => $user->id,
+        //post_id（キー）にidのみ挿入
         'post_id' => $post->id,
       ]);
     }

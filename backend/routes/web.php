@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//確認ログイン承認を求める機能の実装？
+//確認 {}内はログインしているユーザーでないと見れなくなる
 Route::group(['middleware' => 'auth'], function(){
-
+  // getで/に接続されたときPostControllerクラスのindexメソッドを呼び出す。routeの名前をposts.indexに指定
   Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
   Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');

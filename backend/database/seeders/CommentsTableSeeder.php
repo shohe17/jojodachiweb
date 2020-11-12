@@ -13,9 +13,9 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-      //変数にusersテーブルの最初の値を入れる
+      //usersテーブルに一つのレコードだけ入れる
       $user = DB::table('users')->first();
-      //DBのcommentsテーブルに19-21行目を入れる
+      //commentsテーブルにデータを挿入
       DB::table('comments')->insert([
         'user_id' => $user->id,
         'post_id' => 1,

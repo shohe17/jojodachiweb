@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // テーブル作成。テーブルを作成する順番によっては外部キーエラーがでる可能性がある
         $this->call([
             UsersTableSeeder::class,
             PostsTableSeeder::class,
