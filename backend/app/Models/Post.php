@@ -5,37 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
-
 class Post extends Model
 {
   public function likes()
   {
-      //このクラスは多くのlikeをもっている
-      // return $this->hasMany('App\Models\Like');
+      //Postクラスはlikesを複数持っている、一対多の関係
       return $this->hasMany(Like::class, 'post_id');
-
   } 
 
   public function comments()
   {
-      //このクラスは多くのcommentをもっている
-      // return $this->hasMany('App\Models\Like');
+      //このクラスは多くのcommentをもっている、一対多の関係
       return $this->hasMany(Comment::class, 'post_id', 'id');
-
   } 
 
   //postにlikeがついてるか判断するメソッド
   //いいねしてたらtrue、してなかったらfalse
   public function is_liked_by_auth_user()
   {
-    //$idはログインしているidと定義？
+    //ログインしているid
     $id = Auth::id();
-    //arrayは複数の値が入ってる時につかう
+    // 確認, array=配列？
     $likers = array();
+
     foreach($this->likes as $like) {
+      //配列を押したときにuser_idを
       array_push($likers, $like->user_id);
     }
-
+    // 確認, 配列の中にログインしてるidとlikeしてるuser_idがあればtrue、なければfalse
     if (in_array($id, $likers)) {
       return true;
     } else {
