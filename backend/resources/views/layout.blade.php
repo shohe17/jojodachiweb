@@ -37,44 +37,41 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-      @if ($page === 'index')
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route ('mypage', ['user_name' => Auth::user()->name]) }}">マイページ<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route ('posts.create') }}">新規投稿</a>
-        </li>
-      @endif
+        <!-- もし開いてるページがindexだった場合実行 -->
+        @if ($page === 'index')
+          <li class="nav-item">
+            <!-- 引数1でname指定、2でパラメーター指定 -->
+            <a class="nav-link" href="{{ route ('mypage', ['user_name' => Auth::user()->name]) }}">マイページ<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route ('posts.create') }}">新規投稿</a>
+          </li>
+        @endif
       </ul>   
-
-      <!-- TODO if文でホームページの時のみ検索エンジンを表示させるようにする -->
-
       @if ($page === 'index')
-      <form action="{{ route('posts.search') }}" method="post" class="d-flex justify-content-center form-sm active-cyan-2 mr-3">
-        @csrf
-        <input class="form-control form-control-sm w-75" type="text" placeholder="キーワード入力" aria-label="Search" name="search">
-        <button type="submit">
-          <i class="fas fa-search"></i>
-        </button> 
-      </form>
+        <form action="{{ route('posts.search') }}" method="post" class="d-flex justify-content-center form-sm active-cyan-2 mr-3">
+          @csrf
+          <input class="form-control form-control-sm w-75" type="text" placeholder="キーワード入力" aria-label="Search" name="search">
+          <button type="submit">
+            <i class="fas fa-search"></i>
+          </button> 
+        </form>
       @endif
-
       <div class="my-navbar-control">
-        <!-- ログインしていた場合はユーザーネームとログアウトボタンを表示させる -->
         <!-- authクラスのcheckメソッドでログインしてるかどうか確認 -->
         @if (Auth::check())
-          <span class="my-navbar-item">ようこそ, {{ Auth::user()->name }}さん</span>
+          <!-- ログインしてるユーザーネームを表示 -->
+          <span class="my-navbar-item">{{ Auth::user()->name }}さん</span>
           ｜
           <a href="{{ route('login') }}" id="logout" class="my-navbar-item text-white">ログアウト</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
-        <!-- そうでない場合はログインと会員登録ボタンを表示させる -->
         @else
-        <div class="text-right">
-          <a class="my-navbar-item text-white" href="{{ route('login') }}">ログイン</a>
-          ｜
-          <a class="my-navbar-item text-white" href="{{ route('register') }}">会員登録</a>
+          <div class="text-right">
+            <a class="my-navbar-item text-white" href="{{ route('login') }}">ログイン</a>
+            ｜
+            <a class="my-navbar-item text-white" href="{{ route('register') }}">会員登録</a>
           </div>
         @endif
       </div>
@@ -82,7 +79,6 @@
   </nav>
 </header>
 <main>
-  
   @yield('content')
 </main>
   @if(Auth::check())

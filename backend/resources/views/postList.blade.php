@@ -1,9 +1,10 @@
 <div class="container" style="height:1000px;">
-    <div class="row mt-5 pt-5">             
+  <div class="row mt-5 pt-5">             
     @foreach($posts as $post)
       <div class="col-lg-4 col-md-12">
         <div class="card mb-3">
           <!-- Card image -->
+          <!-- srcで表示する画像ファイルを指定 -->
           <img class="card-img-top post-img" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
             <div class="list-group">
               <div href="{{ route('posts.index', ['id' => $post->id]) }}" class="list-group-item">
@@ -32,6 +33,6 @@
           </div>
         </div>
       </div> 
-      @endforeach          
-    </div>
+    @endforeach          
   </div>
+</div>

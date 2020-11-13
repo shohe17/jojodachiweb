@@ -1,7 +1,7 @@
 @extends('layout', ['page' => 'mypage'])
 @section('content')
 <div class="container mt-5 pt-5" style="width:1000px;">
-  <div class="row" ">
+  <div class="row">
     <div class="col-4">
       <h2>
         {{ $user->name }}
@@ -13,7 +13,8 @@
         <!-- 自分のユーザーページの場合設定ボタンが出る -->
         <a href="{{ route('user.edit', ['user_name' => $user->name]) }}" class="btn btn-primary btn mb-5">プロフィール設定</a>
         @else
-          <!-- 自分以外のユーザーページのときはフォローボタンがでる -->
+          <!-- 別ユーザーページのときはフォローボタン -->
+          <!-- 確認 -->
           @if (auth()->user()->isFollowing($user->id))
             <form method="post" action="{{ route ('posts.unfollow', ['id' => $user->id]) }}">
               @csrf
@@ -35,6 +36,7 @@
         <a href="#" class="col-1">
         {{ $user->posts->count() }}
         </a>
+        <!-- followes, followersはuserモデルで定義しているメソッド -->
         <a href="#" class="col-2">
         {{ $user->follows->count() }}
         </a>

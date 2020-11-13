@@ -17,6 +17,7 @@
         @csrf
         <div class="pb-3">
           <h5>投稿の説明</h5>
+          <!-- 遷移前に入力されているviewデータを持ってくる -->
           <input type="text" style="width: 400px;" name="title" id="title" value="{{ old('title') ?? $post->title }}" placeholde="説明文">
         </div>
         <div>

@@ -1,9 +1,8 @@
 @extends('layout', ['page' => 'create'])
 @section('content')
-
   <div class="container" sryle="height:1300px;">
     <div class="row mt-5 pt-5">
-    @if($errors->any())
+      @if($errors->any())
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $message)

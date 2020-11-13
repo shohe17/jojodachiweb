@@ -5,7 +5,6 @@
   <div class="row">
     <div class="col-md-5 img-hidden">
       <div class="card mb-5">
-        <!-- Card image -->
         <img class="card-img-top post-img" src="{{ asset('storage/' . $posts->image_at) }}" alt="Card image cap">
         <div class="list-group">
           <!-- 第一引数に名前、第二引数にパラメーター -->
@@ -42,7 +41,7 @@
             @foreach($posts->comments as $comment)
             <div class="card-body col-12 list-group-item">
               <p class="card-text">ユーザー：{{ $posts->name }}<a href=""></a></p>
-              <p class="card-text ">{{ $comment->comment }}</p>
+              <p class="card-text">{{ $comment->comment }}</p>
             </div>
             @endforeach
           </div>
