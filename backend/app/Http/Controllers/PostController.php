@@ -18,10 +18,10 @@ class PostController extends Controller
 {
     public function index()
     {
-      // withcountで引数の値を数え、getで表示させる
+      // withcountで引数の値を計算、orderByで表示順指定、getでpostデータを取得
+      // , withcount なくてもいいね押せるし変わりないような気がする
       $posts = Post::withCount('likes')->orderBy('created_at', 'desc')->get();
-      //view関数でテンプレートに取得したデータを渡した結果を返却
-      //viesフォルダのなかのファイルを返してくれる役割
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('posts/index', [
         //posutsテーブルデータをテンプレートに渡す
         'posts' => $posts,        
@@ -30,78 +30,83 @@ class PostController extends Controller
 
     public function showCreateForm()
     {
-      //指定したリンクに飛ばす
+      //posts/createファイルに移動
       return view('posts/create');
     }
 
+    //バリデーション、データ受け取り
     public function create(Createpost $request)
     {
       //確認 タイトルだけが投稿された時のバリデーション
-      //画像をフォルダに保存
+      //変数定義
       $user_id = 1;
       //strageのappの引数でもらってるディレクトリにデータを保存
       $path = $request->image->store("public/posts/$user_id");
-      //dbにユーザーが投稿した内容を保存
+      //postクラスのインスタンス生成
       $post = new Post();
+      //postのtitleはリクエストされたtitleと定義
       $post->title = $request->title;
-      //第一引数を第二引数に置き換える
+      // 確認, $pathの文字列にpublic/が合った場合、publc/を空白に変える？
       $post->image_at = str_replace('public/', '', $path);
+      //postのuser_idはuser_idと定義
       $post->user_id = $user_id;
       //ログインユーザーのpostデータを保存
       Auth::user()->posts()->save($post);
       //画面遷移
       return redirect()->route('posts.index');
-
     }
 
-    //editbladeルーティング
+    //id受け取り
     public function showEditForm(int $id)
     {
-      //編集対象のpostデータを取得
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
       $post = Post::find($id);
-      //editbladeにルーティング
-      //第一引数に指定されたファイルを返す
-      //第二引数はs渡す変数を指定、キー（post）が変数の名前
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('posts/edit', [
         'post' => $post,
       ]);
-
     }
-    //編集機能追加
+
+    //id受け取り、バリデーション、リクエスト受け取り
     public function edit(int $id, EditPost $request )
     {
-      //確認 子データから親の呼び方（userのnameが必要）
-      //TODO バリデーション
-      //引数で渡されたidをもってるポストテーブルのデータを読み込み
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
       $post = Post::find($id); 
-      
+      $user = Auth::user();
+      //postのtitleはリクエストされたtitleと定義
       $post->title = $request->title;
-      //変更内容をdbに保存
+      //dbに保存
       $post->save();
-      //マイページに移動
-      return redirect()->route('mypage');
+      //mypageに移動
+      return redirect()->route('mypage', [
+        'user_name' => $user->name,
+      ]);
     }
 
-    public function delete (int $id, Request $request)
+    //id受け取り、リクエスト受け取り
+    public function delete(int $id)
     {
-      //確認 子データから親の呼び方（userのnameが必要）
-      //postクラスのインスタンスの中の選択されたidをもつデータ受け取る
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
+      //インスタンスはクラスを実体化したもの
       $post = Post::find($id);
-      //$postのidはリクエストされたidになる
-      $post->id = $request->id;
-      //削除処理
+      //userの名前を取るコード
+      $user = Auth::user();
+      //削除
       $post->delete();
       //マイページに移動
-      return redirect()->route('mypage');
+      return redirect()->route('mypage', [
+        'user_name' => $user->name,
+      ]);
     }
 
+    //name受け取り
     public function ShowMypageForm(string $name)
     {
-      //withでリレーション関係にあるデータをとってくる
+      //受け取ったnameレコードをもつuserクラスのデータ一つと、postsデータを読み込み
       $user = User::where('name', $name)->with('posts')->first();
-      //ユーザー名からユーザーデータを引っ張る
-      //view関数の第一引数でファイル名を指定
-      //viewsフォルダのなかのファイルを返してくれる役割
+      // dd($name);
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
+      //
       return view('posts/mypage', [
       //postsテーブルデータをテンプレートに渡す
       'posts' => $user->posts,
@@ -109,34 +114,37 @@ class PostController extends Controller
       ]);
     }
 
-    //引数のIDに紐づくlikrにする
+    //引数のIDに紐づくpostにlikeする
     public function like($id)
     {
       //ボタンを押した時にいいね数が追加
       Like::create([
+        //postidは押されたpostがもつid
         'post_id' => $id,
+        //ログインユーザーのid
         'user_id' => Auth::id(),
-
       ]);
       return redirect()->back();
     }
 
     public function unlike($id)
     {
-      //ボタンを押した時にいいね数が減少
+      //likeクラスのpostidをもつレコードを一つ、ログインしているuseridを読み込み
       $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
+      //削除
       $like->delete();
+      //画面遷移
       return redirect()->back();
     }
 
+    //リクエストされたデータ受け取り
     public function search(Request $request)
     {
       //TODOバリデーション
       //データ受け取り
       $request->search;
-      //データ検索
+      //あいまい検索
       $posts = Post::where('title', 'like', "%$request->search%")->get();
-      //データ表示
       //リダイレクト
       return view('posts/index', [
         //posutsテーブルデータをテンプレートに渡す
@@ -144,33 +152,37 @@ class PostController extends Controller
       ]);
     }
 
+
     public function showCommentForm(Post $posts, int $id) 
     {
-      //Postクラスのインスタンス
+      //引数で渡されたidをもつpostsテーブルのデータを読み込み
       $posts = Post::find($id);
+      //withと同じ役割で、リレーション下にあるcommentsテーブルデーターをとってくる？
       $posts->load('comments');
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('posts/comment', [
         'posts' => $posts,
       ]);
     }
 
+    //バリデーション、リクエストデータ受け取り
     public function createComment(CreateComment $request)
     {
-      //インスタンス作成
+      //空のインスタンス作成
       $comment = new Comment();
+      //リクエストデータに、fillableで指定した内入ってるデータを受け取る
       $savedata = $request->only($comment->getFillable());
-      //リクエストデータを受け取り
+      //コメント作成
       $comment = $comment->create($savedata);
-      
-      //画面遷移
+      //前の画面にリダイレクト
       return redirect()->back();
     }
 
      public function follow(int $id)
      {
-      // ログインしてるユーザーのI’dを取得する
-      $follower = Auth::user();      
-      // followerテーブルに保存
+      // ログインしてるユーザーのI’dをもつデータ取得する
+      $follower = Auth::user(); 
+      // フォローした人のuser_idを保存
       $follower->follow($id);     
       // 画面遷移
       return back();
@@ -178,38 +190,45 @@ class PostController extends Controller
 
      public function unfollow(int $id)
      {
-      //ログインしてるユーザーのidを取得する
+      //ログインしてるユーザーのidをもつデータ取得する
       $following = Auth::user();
-      //追加されているデータを削除する
+      // フォロー解除した人のuser_idを削除
       $following->unfollow($id);
       //画面遷移
       return back();
      }
 
+     //nameデータ受け取り
      public function ShowUsereditForm(string $name)
      {
-      //編集対象のデータを受け取る（）
+       //受け取ったnameレコードをもつuserクラスのデータ一つと、posts,followsデータを読み込み
       $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
       $user->load('follows');
-      //画面遷移
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('mypages/useredit', [
         'user' => $user,
         ]);
      }
 
+     // nameデータ、リクエストデータ受け取り
      public function editMypage(string $name, Request $request)
      {
       //TODOバリデーション
       //strageのappの引数でもらってるディレクトリにデータを保存
+      //保存するときはpublic/user
+      //呼び出すときにpublicがあると困る
       $path = $request->image->store("public/user");
-      //dbにユーザーが投稿した内容を保存
+      //userクラスのインスタンスの、nameレコードをもつデータの一つ目を読み込み
       $user = User::where('name', $name)->first();
+      //$pathの時は、public/を空に変える
       $user->image_at = str_replace('public/', '', $path);
+      //リクエストされたbiorographyと定義
       $user->biography = $request->biography;
+      //保存
       $user->save();
       //画面遷移
-      return redirect()->route('mypage', ['user_name' => $name]);
-
+      return redirect()->route('mypage', [
+        'user_name' => $name
+      ]);
      }
-     
 }

@@ -19,25 +19,30 @@ class Post extends Model
       return $this->hasMany(Comment::class, 'post_id', 'id');
   } 
 
+  public function user()
+  {
+      return $this->belongsTo(User::class);
+  }
   //postにlikeがついてるか判断するメソッド
   //いいねしてたらtrue、してなかったらfalse
   public function is_liked_by_auth_user()
   {
     //ログインしているid
     $id = Auth::id();
-    // 確認, array=配列？
-    $likers = array();
+    //array()は[]で良い
+    $likers = [];
 
     foreach($this->likes as $like) {
       //配列を押したときにuser_idを
       array_push($likers, $like->user_id);
     }
-    // 確認, 配列の中にログインしてるidとlikeしてるuser_idがあればtrue、なければfalse
-    if (in_array($id, $likers)) {
-      return true;
-    } else {
-      return false;
-    }
+    // 配列の中にログインしてるidとlikeしてるuser_idがあればtrue、なければfalse
+    return in_array($id, $likers); 
+    // if (in_array($id, $likers)) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 }
 

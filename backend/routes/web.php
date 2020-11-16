@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
   Route::post('posts/{id}/edit', [PostController::class, 'edit']);
 
-  Route::post('posts/delete/{id}', [PostController::class, 'delete']);
+  Route::post('mypage/delete/{id}', [PostController::class, 'delete']);
 
   Route::get('posts/like/{id}', [PostController::class, 'like'])->name('posts.like');
   Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('posts.unlike');

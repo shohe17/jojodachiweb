@@ -32,7 +32,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    // 確認 引数の中身を隠す？
+    // 引数の中身を隠す？
     protected $hidden = [
         'password', 'remember_token',
     ];
