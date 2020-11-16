@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 use App\Models\Post;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\UserController;
+
 // use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 // use Illuminate\Routing\Route;
-
-//Method Illuminate\Routing\Route::get does not exist.
-//下のuseをコメントアウトしたら表示できた。useで別のものを指定したら画面表示ができないか
-// use Illuminate\Routing\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,21 +34,21 @@ Route::group(['middleware' => 'auth'], function(){
 
   Route::post('mypage/delete/{id}', [PostController::class, 'delete']);
 
-  Route::get('posts/like/{id}', [PostController::class, 'like'])->name('posts.like');
-  Route::get('posts/unlike/{id}', [PostController::class, 'unlike'])->name('posts.unlike');
+  Route::get('posts/like/{id}', [LikeController::class, 'like'])->name('posts.like');
+  Route::get('posts/unlike/{id}', [LikeController::class, 'unlike'])->name('posts.unlike');
 
   Route::post('posts/search', [PostController::class, 'search'])->name('posts.search');
 
-  Route::get('posts/{id}/comment', [PostController::class, 'showCommentForm'])->name('posts.comment');
-  Route::post('posts/{id}/comment', [PostController::class, 'createComment']);
+  Route::get('posts/{id}/comment', [CommentController::class, 'showCommentForm'])->name('posts.comment');
+  Route::post('posts/{id}/comment', [CommentController::class, 'createComment']);
   
-  Route::post('posts/follow/{id}', [PostController::class, 'follow'])->name('posts.follow');
-  Route::post('posts/unfollow/{id}', [PostController::class, 'unfollow'])->name('posts.unfollow');
+  Route::post('posts/follow/{id}', [FollowController::class, 'follow'])->name('posts.follow');
+  Route::post('posts/unfollow/{id}', [FollowController::class, 'unfollow'])->name('posts.unfollow');
 
-  Route::get('mypage/{user_name}', [PostController::class, 'ShowMypageForm'])->name('mypage');
+  Route::get('mypage/{user_name}', [UserController::class, 'ShowMypageForm'])->name('mypage');
 
-  Route::get('user/edit/{user_name}', [PostController::class, 'ShowUsereditForm'])->name('user.edit');
-  Route::post('user/edit/{user_name}', [PostController::class, 'editMypage']);
+  Route::get('user/edit/{user_name}', [UserController::class, 'ShowUsereditForm'])->name('user.edit');
+  Route::post('user/edit/{user_name}', [UserController::class, 'editMypage']);
 });
 Auth::routes();
 
