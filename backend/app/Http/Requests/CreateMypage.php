@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateComment extends FormRequest
+class CreateMypage extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,23 +16,17 @@ class CreateComment extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-          'comment' => 'required|max:150',
+          'biography' => 'required|max:200',
         ];
     }
 
     public function messages()
     {
         return [
-            'comment.max' => 'コメント本文は150文字以内で入力してください',
-            'required' => 'コメントは必須項目です'
+            'biography.max' => 'コメント本文は200文字以内で入力してください',
         ];
     }
 }

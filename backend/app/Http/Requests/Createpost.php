@@ -35,6 +35,7 @@ class Createpost extends FormRequest
     {
       return[
         'title' => '説明文',
+        'image_at' => 'required'
       ];
     }
 }

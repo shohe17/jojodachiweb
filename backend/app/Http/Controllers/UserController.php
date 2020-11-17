@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateMypage;
 use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -33,7 +35,7 @@ class UserController extends Controller
   }
 
   // nameデータ、リクエストデータ受け取り
-  public function editMypage(string $name, Request $request)
+  public function editMypage(string $name,CreateMypage $request )
   {
    //TODOバリデーション
    //strageのappの引数でもらってるディレクトリにデータを保存
