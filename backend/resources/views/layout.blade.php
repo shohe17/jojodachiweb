@@ -27,7 +27,7 @@
   <script defer src="{{ asset('/js/app.js') }}"></script>
 
 </head>
-<body>
+<body class="bg-img1">
 <header>
   <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-info text-white scrolling-navbar h5">
     <a class="navbar-brand pl-2" href="/">ホーム</a>

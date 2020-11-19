@@ -1,6 +1,6 @@
 @extends('layout', ['page' => 'mypage'])
 @section('content')
-<div class="container mt-5 pt-5" style="width:1000px;">
+<div class="container mt-5 pt-5 bg-img1" style="width:1000px;">
   <div class="row">
     <div class="col-4">
       <h2>

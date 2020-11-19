@@ -8,6 +8,11 @@
           <img class="card-img-top post-img" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
             <div class="list-group">
               <div href="{{ route('posts.index', ['id' => $post->id]) }}" class="list-group-item">
+                <div>
+                <a href="{{ route ('mypage', ['user_name' => $post->user->name]) }}">
+                  {{ $post->user->name }}
+                </a>
+                </div>
                 {{ $post->title }}
               </div>  
             </div>
@@ -21,7 +26,8 @@
                 <a href="{{ route('posts.like', ['id' => $post->id]) }}" class="far fa-heart pr-1">{{ $post->likes->count() }}</a>
               @endif
             </ul>
-            @if ($page === 'mypage')
+            <!-- マイページかつログインしているユーザーの場合 -->
+            @if ($page === 'mypage' && $user->name === Auth::user()->name )
             <div class="text-right d-flex justify-content-center">
               <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">編集</a>
               <form method="post" action="delete/{{$post->id}}">
