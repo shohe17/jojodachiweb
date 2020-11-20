@@ -28,6 +28,7 @@ class Createpost extends FormRequest
         return [
           //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
           'title' => 'required|max:150',
+          'image' => 'required',
         ];
     }
 
@@ -35,7 +36,7 @@ class Createpost extends FormRequest
     {
       return[
         'title' => '説明文',
-        'image_at' => 'required'
+        'image' => '画像'
       ];
     }
 }

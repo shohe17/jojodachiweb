@@ -15,7 +15,9 @@ class CommentController extends Controller
     //引数で渡されたidをもつpostsテーブルのデータを読み込み
     $posts = Post::find($id);
     //withと同じ役割で、リレーション下にあるcommentsテーブルデーターをとってくる？
-    $posts->load('comments');
+    $posts->load(['comments' => function($query){
+      $query->orderBy('created_at', 'desc');
+    }]);
     //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
     return view('posts/comment', [
       'posts' => $posts,
