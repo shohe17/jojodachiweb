@@ -1,5 +1,16 @@
-tako {
-  color: read;
+.post-img {
+  object-fit: cover;
   background-color: black;
-  padding-left: 50%;
+  height: 300px;
+  width: 100%;
+}
+
+.bg-img1 {
+  background-image: url("../images/posts/default3.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color:rgba(255,255,255,0.7);
+  background-blend-mode:lighten;
 }

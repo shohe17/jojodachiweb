@@ -27,62 +27,65 @@
   <script defer src="{{ asset('/js/app.js') }}"></script>
 
 </head>
-<body>
+<body class="bg-img1">
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info text-white scrolling-navbar">
-    <a class="navbar-brand" href="/"><strong>ホームページ</strong></a>
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-info text-white scrolling-navbar h5">
+    <a class="navbar-brand pl-2" href="/">ホーム</a>
+    <!-- ハンバーガーボタン作成と条件指定 -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ route ('posts.mypage') }}">マイページ<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route ('posts.create') }}">投稿ページ</a>
-        </li>
-      </ul>
+        <!-- もし開いてるページがindexだった場合実行 -->
+        @if ($page === 'index')
+          <li class="nav-item">
+            <!-- 引数1でname指定、2でパラメーター指定 -->
+            <a class="nav-link" href="{{ route ('mypage', ['user_name' => Auth::user()->name]) }}">マイページ<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route ('posts.create') }}">新規投稿</a>
+          </li>
+        @endif
+      </ul>   
+      @if ($page === 'index')
+        <form action="{{ route('posts.search') }}" method="post" class="d-flex justify-content-center form-sm active-cyan-2 mr-3">
+          @csrf
+          <input class="form-control form-control-sm w-75" type="text" placeholder="キーワード入力" aria-label="Search" name="search">
+          <button type="submit">
+            <i class="fas fa-search"></i>
+          </button> 
+        </form>
+      @endif
       <div class="my-navbar-control">
-        <!-- ログインしていた場合はユーザーネームとログアウトボタンを表示させる -->
         <!-- authクラスのcheckメソッドでログインしてるかどうか確認 -->
         @if (Auth::check())
-          <span class="my-navbar-item">ようこそ, {{ Auth::user()->name }}さん</span>
+          <!-- ログインしてるユーザーネームを表示 -->
+          <span class="my-navbar-item">{{ Auth::user()->name }}さん</span>
           ｜
-          <a href="{{ route('login') }}" id="logout" class="my-navbar-item">ログアウト</a>
+          <a href="{{ route('login') }}" id="logout" class="my-navbar-item text-white">ログアウト</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
-        <!-- そうでない場合はログインと会員登録ボタンを表示させる -->
         @else
-          <a class="my-navbar-item" href="{{ route('login') }}">ログイン</a>
-          ｜
-          <a class="my-navbar-item" href="{{ route('register') }}">会員登録</a>
+          <div class="text-right">
+            <a class="my-navbar-item text-white" href="{{ route('login') }}">ログイン</a>
+            ｜
+            <a class="my-navbar-item text-white" href="{{ route('register') }}">会員登録</a>
+          </div>
         @endif
       </div>
-        <!-- <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-twitter"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"><i class="fab fa-instagram"></i></a>
-        </li>
-      </ul> -->
     </div>
   </nav>
 </header>
 <main>
-  
   @yield('content')
 </main>
   @if(Auth::check())
     <script>
       document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        document.getElementById('logout-form').submit();
+      event.preventDefault();
+      document.getElementById('logout-form').submit();
       });
     </script>
   @endif

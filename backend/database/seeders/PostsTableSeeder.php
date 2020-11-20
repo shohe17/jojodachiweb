@@ -15,17 +15,19 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        //usersテーブルに1つだけレコードを挿入する
         $user = DB::table('users')->first();
+        // $titleに3つの値をもつ配列をいれる
         $titles = ['仗助', 'ハイウェイスター', 'アブドゥル'];
-        // $user_id = 1;
-        // $image_at = 1;
-        
+
+        //配列か連想配列に対する繰り返し分
         foreach ($titles as $title) {
+          //postsテーブルに[]内のデータを挿入
           DB::table('posts')->insert([
             'user_id' => $user->id,
             'title' => $title,
             'image_at' => 1,
-            // 'image_at' => $image_at,
+            //挿入時の時間を入れる
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
           ]);

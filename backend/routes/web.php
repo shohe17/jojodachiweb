@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 use App\Models\Post;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\UserController;
+
+// use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 // use Illuminate\Routing\Route;
-
-//Method Illuminate\Routing\Route::get does not exist.
-//下のuseをコメントアウトしたら表示できた。useで別のものを指定したら画面表示ができないか
-// use Illuminate\Routing\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,27 +21,34 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//確認ログイン承認を求める機能の実装？
+//確認 {}内はログインしているユーザーでないと見れなくなる
 Route::group(['middleware' => 'auth'], function(){
-
+  // getで/に接続されたときPostControllerクラスのindexメソッドを呼び出す。routeの名前をposts.indexに指定
   Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
   Route::get('posts/create', [PostController::class, 'showCreateForm'])->name('posts.create');
   Route::post('posts/create', [PostController::class, 'create']);
 
-  //editのルーティング、ページ移動
   Route::get('posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
-  //editのルーティング、データ送信
   Route::post('posts/{id}/edit', [PostController::class, 'edit']);
 
-  //deleteのルーティング、データ送信
-  Route::post('posts/delete/{id}', [PostController::class, 'delete']);
-  //名前指定が必要そうな場合に追加する
-  // ->name('delete.edit');
+  Route::post('mypage/delete/{id}', [PostController::class, 'delete']);
 
-  //mypageのルーティング
-  Route::get('posts/mypage', [PostController::class, 'ShowMypageForm'])->name('posts.mypage');
+  Route::get('posts/like/{id}', [LikeController::class, 'like'])->name('posts.like');
+  Route::get('posts/unlike/{id}', [LikeController::class, 'unlike'])->name('posts.unlike');
 
+  Route::post('posts/search', [PostController::class, 'search'])->name('posts.search');
+
+  Route::get('posts/{id}/comment', [CommentController::class, 'showCommentForm'])->name('posts.comment');
+  Route::post('posts/{id}/comment', [CommentController::class, 'createComment']);
+  
+  Route::post('posts/follow/{id}', [FollowController::class, 'follow'])->name('posts.follow');
+  Route::post('posts/unfollow/{id}', [FollowController::class, 'unfollow'])->name('posts.unfollow');
+
+  Route::get('mypage/{user_name}', [UserController::class, 'ShowMypageForm'])->name('mypage');
+
+  Route::get('user/edit/{user_name}', [UserController::class, 'ShowUsereditForm'])->name('user.edit');
+  Route::post('user/edit/{user_name}', [UserController::class, 'editMypage']);
 });
 Auth::routes();
 

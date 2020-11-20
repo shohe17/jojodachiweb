@@ -4,28 +4,29 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditTask extends FormRequest
+class CreateMypage extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            //
+          'biography' => 'required|max:200',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'biography.max' => 'コメント本文は200文字以内で入力してください',
         ];
     }
 }

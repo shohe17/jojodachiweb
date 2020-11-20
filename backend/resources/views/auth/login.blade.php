@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('layout', ['page' => 'login'])
 
 @section('content')
   <div class="container pt-5">
     <div class="row mt-5">
       <div class="col col-md-offset-3 col-md-6">
-        <nav class="panel panel-default">
+        <nav class="panel panel-default h5">
           <div class="panel-heading">ログイン</div>
           <div class="panel-body">
             @if($errors->any())

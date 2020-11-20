@@ -15,13 +15,16 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-      //確認dbに20-24行目のデータをテストデータとして挿入する
+      //usersテーブルにデータ挿入
       DB::table('users')->insert([
+        //左がキー（カラム）で右は値
         'name' => 'test',
         'email' => 'test@gmail.com',
-        //bcrypt関数は()内の暗号化
+        'image_at' => '1',
+        'biography' => 'aaa',
+        //bcrypt関数は()内を暗号化
         'password' => bcrypt('test1234'),
-        //Carbon::now();は挿入時の時間
+        //挿入時の時間を入れる
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now(),
       ]);

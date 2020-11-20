@@ -1,107 +1,109 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Createpost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\FuncCall;
+use App\Http\Requests\EditPost;
 
 class PostController extends Controller
 {
     public function index()
     {
-      //$postsに、Postモデルのallメソッドでpostデータを全て取得
-      $posts = Post::all();
-
-      //view関数でテンプレート（ブラウザ）に取得したデータを渡した結果を返却
-      //テンプレートのファイル名
-      //viesフォルダのなかのファイルを返してくれる役割
+      // withcountで引数の値を計算、orderByで表示順指定、getでpostデータを取得
+      // , withcount なくてもいいね押せるし変わりないような気がする
+      $posts = Post::withCount('likes')->orderBy('created_at', 'desc')->get();
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('posts/index', [
         //posutsテーブルデータをテンプレートに渡す
-        'posts' => $posts,
+        'posts' => $posts,        
       ]);
     }
 
     public function showCreateForm()
     {
-      //指定したリンクに飛ばす
+      //posts/createファイルに移動
       return view('posts/create');
     }
 
+    //バリデーション、データ受け取り
     public function create(Createpost $request)
     {
-      // TODO バリデーション後で書く
       //確認 タイトルだけが投稿された時のバリデーション
-      //画像をフォルダに保存
+      //変数定義
       $user_id = 1;
+      //strageのappの引数でもらってるディレクトリにデータを保存
       $path = $request->image->store("public/posts/$user_id");
-
-      //dbにユーザーが投稿した内容を保存
+      //postクラスのインスタンス生成
       $post = new Post();
+      //postのtitleはリクエストされたtitleと定義
       $post->title = $request->title;
-      //第一引数を第二引数に置き換える
+      // 確認, $pathの文字列にpublic/が合った場合、publc/を空白に変える？
       $post->image_at = str_replace('public/', '', $path);
+      //postのuser_idはuser_idと定義
       $post->user_id = $user_id;
-      //確認、青文字はクラスを呼び出している？
+      //ログインユーザーのpostデータを保存
       Auth::user()->posts()->save($post);
-
-      //一覧表示にリダイレクト
+      //画面遷移
       return redirect()->route('posts.index');
-
     }
 
-    //editbladeルーティング
+    //id受け取り
     public function showEditForm(int $id)
     {
-      //編集対象のpostデータを取得
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
       $post = Post::find($id);
-      //editbladeにルーティング
-      //第一引数に指定されたファイルを返す
-      //第二引数は渡す変数を指定、キー（post）が変数の名前
+      //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
       return view('posts/edit', [
         'post' => $post,
       ]);
-
-    }
-    //編集機能追加
-    public function edit(int $id, Request $request )
-    {
-      //TODO バリデーション
-      //TODO 編集したいpostのデータを取得
-      $post = Post::find($id);      
-
-      //TODO 変更内容をdbに保存
-      $post->title = $request->title;
-      // $post->image_at = $request->image_at;
-      $post->save();
-      //マイページに移動
-      return redirect()->route('posts.mypage');
     }
 
-    public function delete (int $id, Request $request)
+    //id受け取り、バリデーション、リクエスト受け取り
+    public function edit(int $id, EditPost $request )
     {
-      //データ受け取り、削除処理
-      
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
       $post = Post::find($id); 
-      //  Post::find($request->id)
-      $post->id = $request->id;
-      $post->delete();
-       
-      //マイページに移動
-      return redirect()->route('posts.mypage');
+      $user = Auth::user();
+      //postのtitleはリクエストされたtitleと定義
+      $post->title = $request->title;
+      //dbに保存
+      $post->save();
+      //mypageに移動
+      return redirect()->route('mypage', [
+        'user_name' => $user->name,
+      ]);
     }
 
-    public function ShowMypageForm()
+    //id受け取り、リクエスト受け取り
+    public function delete(int $id)
     {
-      //ログインユーザーがもつpostsのみを取得させる
-      $posts = Auth::user()->posts()->get();
-      //view関数の第一引数でファイル名を指定
-      //viewsフォルダのなかのファイルを返してくれる役割
-      return view('posts/mypage', [
-      //postsテーブルデータをテンプレートに渡す
-      'posts' => $posts,
+      //引数で渡されたidをもつpostテーブルのデータを読み込み
+      //インスタンスはクラスを実体化したもの
+      $post = Post::find($id);
+      //userの名前を取るコード
+      $user = Auth::user();
+      //削除
+      $post->delete();
+      //マイページに移動
+      return redirect()->route('mypage', [
+        'user_name' => $user->name,
+      ]);
+    }
+
+    //リクエストされたデータ受け取り
+    public function search(Request $request)
+    {
+      //TODOバリデーション
+      //データ受け取り
+      $request->search;
+      //あいまい検索
+      $posts = Post::where('title', 'like', "%$request->search%")->get();
+      //リダイレクト
+      return view('posts/index', [
+        //posutsテーブルデータをテンプレートに渡す
+        'posts' => $posts,
       ]);
     }
 }
