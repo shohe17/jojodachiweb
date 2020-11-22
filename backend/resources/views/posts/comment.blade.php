@@ -40,8 +40,9 @@
           <div class="list-group">
             @foreach($posts->comments as $comment)
             <div class="card-body col-12 list-group-item">
-              <a href="{{ route ('mypage', ['user_name' => $comment->user->name]) }}"><p class="card-text">{{ $comment->user->name }}</p></a>
-              <p class="card-text">{{ $comment->comment }}</p>
+              <p class="card-text">名前：<a href="{{ route ('mypage', ['user_name' => $comment->user->name]) }}">{{ $comment->user->name }}</a></p>
+              <p class="card-text h5 font-weight-normal">{{ $comment->comment }}</p>
+              <p class="far fa-clock pr-3 grey-text">{{ $comment->created_at }}</p>
             </div>
             @endforeach
           </div>

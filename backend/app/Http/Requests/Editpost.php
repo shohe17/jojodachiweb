@@ -2,18 +2,20 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\Createpost;
+use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
-class Editpost extends Createpost
+class EditPost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+    
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,15 +25,16 @@ class Editpost extends Createpost
      */
     public function rules()
     {
-        return [
-          'title' => 'required|max:150'
-        ];
+      return [
+        //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
+        'title' => 'required|max:150',
+      ];
     }
 
     public function attributes()
     {
       return [
-        'title' => '説明文'
+        'title' => '説明文',
       ];
     }
 }

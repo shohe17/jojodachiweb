@@ -2,6 +2,7 @@
 @section('content')
   <div class="container" sryle="height:1300px;">
     <div class="row mt-5 pt-5">
+      <div class="col-md-7">
       @if($errors->any())
         <div class="alert alert-danger">
           <ul>
@@ -24,6 +25,12 @@
           <button type="submit" class=" btn btn-info ">送信する</button>
         </div>
       </form>
+      </div>
+      <div class="col-md-5 img-hidden">
+        <div class="card m-5 rounded-circle">
+          <img class="card-img-top post-img rounded-circle" src="{{ asset('storage/' . $post->image_at) }}" alt="Card image cap">
+        </div>
+      </div>
     </div>
   </div>
 @endsection

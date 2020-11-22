@@ -27,6 +27,7 @@ class UserController extends Controller
   {
     //受け取ったnameレコードをもつuserクラスのデータ一つと、posts,followsデータを読み込み
    $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
+  //  dd($user); 
    $user->load('follows');
    //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
    return view('mypages/useredit', [
@@ -44,7 +45,7 @@ class UserController extends Controller
    //userクラスのインスタンスの、nameレコードをもつデータの一つ目を読み込み
    $user = User::where('name', $name)->first();
    //$pathの時は、public/を空に変える、からにか
-  //  if (画像が投稿された時){}
+   // if (画像が投稿された時){}
    $path = $request->image->store("public/user");
    $user->image_at = str_replace('public/', '', $path);
    //リクエストされたbiorographyと定義
