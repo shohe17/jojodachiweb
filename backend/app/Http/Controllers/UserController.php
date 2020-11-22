@@ -38,17 +38,16 @@ class UserController extends Controller
   // nameデータ、リクエストデータ受け取り
   public function editMypage(string $name, CreateMypage $request)
   {
-   //TODOバリデーション
    //strageのappの引数でもらってるディレクトリにデータを保存
    //保存するときはpublic/user
-   //呼び出すときにpublicがあると困る
    //userクラスのインスタンスの、nameレコードをもつデータの一つ目を読み込み
    $user = User::where('name', $name)->first();
-   //$pathの時は、public/を空に変える、からにか
-   // if (画像が投稿された時){}
+   //$pathの時は、public/を空に変える
+   if ( isset($request->image)) {
    $path = $request->image->store("public/user");
    $user->image_at = str_replace('public/', '', $path);
    //リクエストされたbiorographyと定義
+  }
    $user->biography = $request->biography;
    //保存
    $user->save();

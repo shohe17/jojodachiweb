@@ -28,7 +28,8 @@ class Createpost extends FormRequest
         return [
           //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
           'title' => 'required|max:150',
-          'image' => 'required',
+          'image' => 'mimes:jpeg,png,jpg,gif|max:1024',
+
         ];
     }
 
@@ -36,7 +37,9 @@ class Createpost extends FormRequest
     {
       return[
         'title' => '説明文',
-        'image' => '画像'
+        'max' => '1ギガバイト未満の画像を選択してください',
+        'image' => '指定されたファイルが画像ではありません。',
+        'mimes' => '指定された拡張子（PNG/JPG/GIF）ではありません。',
       ];
     }
 }
