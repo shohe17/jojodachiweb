@@ -50,6 +50,14 @@ class PostController extends Controller
   //id受け取り
   public function showEditForm(int $id)
   {
+    $current_post = Post::find($id);
+    if (is_null($current_post)) {
+      abort(404);
+    }
+    $login_id = Auth::id();
+    if ($login_id !== $current_post->user_id) {
+      abort(404);
+    }
     //引数で渡されたidをもつデータを読み込み
     $post = Post::find($id);
     //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す

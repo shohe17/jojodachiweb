@@ -11,6 +11,10 @@ class CommentController extends Controller
 {
   public function showCommentForm(int $id) 
   {
+    $current_post = Post::find($id);
+    if (is_null($current_post)) {
+      abort(404);
+    }
     //引数で渡されたidをもつpostsテーブルのデータを読み込み
     $post = Post::find($id);
     //withと同じ役割で、リレーション下にあるcommentsテーブルデーターをとってくる？
