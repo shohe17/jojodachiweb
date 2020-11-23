@@ -9,6 +9,35 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 { 
   use HasFactory, Notifiable;
+/**
+ * The attributes that are mass assignable.
+ *
+ * @var array
+ */
+// 複数の値をいれておく箱
+protected $fillable = [
+  'name', 'email', 'password',
+];
+
+/**
+ * The attributes that should be hidden for arrays.
+ *
+ * @var array
+ */
+// 引数の中身を隠す？
+protected $hidden = [
+    'password', 'remember_token',
+];
+
+/**
+ * The attributes that should be cast to native types.
+ *
+ * @var array
+ */
+protected $casts = [
+    'email_verified_at' => 'datetime',
+];
+
 
   //多対多のリレーション
   public function follows()
@@ -26,35 +55,6 @@ class User extends Authenticatable
     //Userクラスはpostを複数持っている、一対多の関係
     return $this->hasMany('App\Models\Post');
   }
-
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  // 複数の値をいれておく箱
-  protected $fillable = [
-      'name', 'email', 'password',
-  ];
-
-  /**
-   * The attributes that should be hidden for arrays.
-   *
-   * @var array
-   */
-  // 引数の中身を隠す？
-  protected $hidden = [
-      'password', 'remember_token',
-  ];
-
-  /**
-   * The attributes that should be cast to native types.
-   *
-   * @var array
-   */
-  protected $casts = [
-      'email_verified_at' => 'datetime',
-  ];
 
   //フォロー
   public function follow(int $user_id) 
