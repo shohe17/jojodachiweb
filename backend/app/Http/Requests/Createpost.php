@@ -25,20 +25,18 @@ class Createpost extends FormRequest
      */
     public function rules()
     {
-        return [
-          //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
-          'title' => 'required|max:150',
-          'image' => 'mimes:jpeg,png,jpg,gif|max:10',
-
-        ];
+      return [
+        //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
+        'title' => 'required|max:150',
+        'image' => 'mimes:jpeg,png,jpg,gif|max:1024',
+      ];
     }
 
     public function attributes()
     {
       return[
         'title' => '説明文',
-        'max' => '1ギガバイト未満の画像を選択してください',
-        'image' => '指定されたファイルが画像ではありません。',
+        'image' => '1ギガバイト未満の画像を選択してください',
         'mimes' => '指定された拡張子（PNG/JPG/GIF）ではありません。',
       ];
     }

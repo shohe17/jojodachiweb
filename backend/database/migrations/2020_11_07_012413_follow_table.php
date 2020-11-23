@@ -6,29 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 class FollowTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-      Schema::create('follows', function (Blueprint $table) {
-        $table->id();
-        //外部キー制約
-        //親テーブルにuser_idがない場合エラーを出す
-        $table->foreignId('user_id');
-        $table->foreignId('followed_id');
+/**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('follows', function (Blueprint $table) {
+      $table->id();
+      //外部キー制約
+      //親テーブルにuser_idがない場合エラーを出す
+      $table->foreignId('user_id');
+      $table->foreignId('followed_id');
     });
-    }
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('follow');
+  }
 }
