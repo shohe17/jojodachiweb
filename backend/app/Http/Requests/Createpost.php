@@ -28,7 +28,7 @@ class Createpost extends FormRequest
         return [
           //required（必須入力）を指定することにより、titleを入力しないとエラーが出る
           'title' => 'required|max:150',
-          'image' => 'mimes:jpeg,png,jpg,gif|max:1024',
+          'image' => 'mimes:jpeg,png,jpg,gif|max:10',
 
         ];
     }

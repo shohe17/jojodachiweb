@@ -9,27 +9,28 @@ class Post extends Model
 {
   public function likes()
   {
-      //Postクラスはlikesを複数持っている、一対多の関係
-      return $this->hasMany(Like::class, 'post_id');
+    //Postクラスはlikesを複数持っている、一対多の関係
+    return $this->hasMany(Like::class, 'post_id');
   } 
 
   public function comments()
   {
-      //このクラスは多くのcommentをもっている、一対多の関係
-      return $this->hasMany(Comment::class, 'post_id', 'id');
+    //このクラスは多くのcommentをもっている、一対多の関係
+    return $this->hasMany(Comment::class, 'post_id', 'id');
   } 
 
   public function user()
   {
-      return $this->belongsTo(User::class);
+    //このクラスはuserクラスに紐づいてますよを表す、hasoneのリレーション
+    return $this->belongsTo(User::class);
   }
-  //postにlikeがついてるか判断するメソッド
-  //いいねしてたらtrue、してなかったらfalse
+
+  //postにlikeがついてるか判断するメソッド、いいねしてたらtrue、してなかったらfalse
   public function is_liked_by_auth_user()
   {
-    //ログインしているid
+    //ログインしているユーザーのid
     $id = Auth::id();
-    //array()は[]で良い
+    //array()は[]で
     $likers = [];
 
     foreach($this->likes as $like) {
@@ -38,11 +39,6 @@ class Post extends Model
     }
     // 配列の中にログインしてるidとlikeしてるuser_idがあればtrue、なければfalse
     return in_array($id, $likers); 
-    // if (in_array($id, $likers)) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
   }
 }
 

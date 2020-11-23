@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-  //created_atとupdated_atの自動更新無効
+  // created_atとupdated_atの自動更新無効
   public $timestamps = false;
   // 複数の値（カラム）を入力するために必要？
   protected $fillable = ['post_id','user_id'];
