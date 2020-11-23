@@ -48,7 +48,7 @@
       {{ $user->biography }}
       </div>
     </div>
-    
+  </div>
 </div>
 @include('postList', ['page' => 'mypage'])
 @endsection

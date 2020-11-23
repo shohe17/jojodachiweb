@@ -30,7 +30,7 @@ class PostController extends Controller
   //バリデーション、データ受け取り
   public function create(Createpost $request)
   {
-    $user_id = 1;
+    $user_id = Auth::id();
     //strageのappの引数でもらってるディレクトリにデータを保存
     $path = $request->image->store("public/posts/$user_id");
     //postクラスのインスタンス生成
