@@ -93,9 +93,6 @@ class PostController extends Controller
   //リクエストされたデータ受け取り
   public function search(Request $request)
   {
-    //TODOバリデーション
-    //データ受け取り
-    $request->search;
     //あいまい検索
     $posts = Post::where('title', 'like', "%$request->search%")->get();
     //リダイレクト
