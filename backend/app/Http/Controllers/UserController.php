@@ -14,7 +14,7 @@ class UserController extends Controller
     //受け取ったnameレコードをもつuserクラスのデータ一つと、postsデータを読み込み
     $user = User::where('name', $name)->with('posts')->first();
     //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
-    return view('posts/mypage', [
+    return view('mypages/mypage', [
     //postsテーブルデータをテンプレートに渡す
     'posts' => $user->posts,
     'user' => $user,
