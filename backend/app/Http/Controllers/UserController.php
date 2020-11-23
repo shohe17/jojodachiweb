@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateMypage;
 use App\Models\User;
 
@@ -27,12 +26,11 @@ class UserController extends Controller
   {
     //受け取ったnameレコードをもつuserクラスのデータ一つと、posts,followsデータを読み込み
    $user = User::where('name', $name)->with(['posts', 'follows'])->first(); 
-  //  dd($user); 
    $user->load('follows');
    //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
    return view('mypages/useredit', [
-     'user' => $user,
-     ]);
+    'user' => $user,
+    ]);
   }
 
   // nameデータ、リクエストデータ受け取り
@@ -44,10 +42,10 @@ class UserController extends Controller
    $user = User::where('name', $name)->first();
    //$pathの時は、public/を空に変える
    if ( isset($request->image)) {
-   $path = $request->image->store("public/user");
-   $user->image_at = str_replace('public/', '', $path);
+     $path = $request->image->store("public/user");
+     $user->image_at = str_replace('public/', '', $path);
+    }
    //リクエストされたbiorographyと定義
-  }
    $user->biography = $request->biography;
    //保存
    $user->save();

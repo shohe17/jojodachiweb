@@ -18,7 +18,7 @@ class CommentController extends Controller
       $query->orderBy('created_at', 'desc');
     }]);
     //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
-    return view('posts/comment', [
+    return view('comments/comment', [
       'posts' => $post,
     ]);
   }
