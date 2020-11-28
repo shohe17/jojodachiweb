@@ -15,6 +15,9 @@ jobs:
           key: composer-v1-{{ checksum "backend/composer.lock" }}
           paths:
             - backend/vendor
+      - run: 
+          working_directory: backend
+          command: php artisan serve
       - run:
           name: php test
           working_directory: backend
