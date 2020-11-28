@@ -21,7 +21,7 @@
         <div class="pb-3">
           <h5>画像選択</h5>
           <input type="file" id="image" name="image">
-          <label for="image" ></label>
+          <label for="image"></label>
         </div>
         <div>
           <button type="submit" class=" btn btn-info ">送信する</button>
