@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMypage;
@@ -17,6 +16,10 @@ class UserController extends Controller
     }
     //受け取ったnameレコードをもつuserクラスのデータ一つと、postsデータを読み込み
     $user = User::where('name', $name)->with('posts')->first();
+    $user->load(['posts' => function ($query){
+      $query->orderBy('created_at', 'desc');
+    }]);
+    
     //第一引数でviewsの中の指定したファイルを表示させ、第二引数でデータを渡す
     return view('mypages/mypage', [
       //postsテーブルデータをテンプレートに渡す
