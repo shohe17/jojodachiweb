@@ -27,9 +27,9 @@
   <script defer src="{{ asset('/js/app.js') }}"></script>
 
 </head>
-<body class="bg-img1">
+<body class="bg-light">
 <header>
-  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-info text-white scrolling-navbar h5">
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark text-white scrolling-navbar h5">
     <a class="navbar-brand pl-2" href="/">ホーム</a>
     <!-- ハンバーガーボタン作成と条件指定 -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

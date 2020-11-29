@@ -1,6 +1,6 @@
 @extends('layout', ['page' => 'mypage'])
 @section('content')
-<div class="container mt-5 pt-5 bg-img1" style="width:1000px;">
+<div class="container mt-5 pt-5" style="width:1000px;">
   <div class="row">
     <div class="col-4">
       <h2>
@@ -32,7 +32,7 @@
         <span class="ml-2">フォロー</span>
         <span class="ml-2">フォロワー</span>
       </div>
-      <div class="pl-1 h3 mb-5">
+      <div class="pl-1 h3 mb-5 disabled">
         <a href="#" class="col-1">
         {{ $user->posts->count() }}
         </a>
