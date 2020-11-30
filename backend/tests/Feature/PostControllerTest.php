@@ -1,28 +1,25 @@
 <?php
 namespace Tests\Feature;
 
-use Carbon\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     * 
-     * @return void
-     */
-    public function testIndex()
-    {
-        // 準備 userを作る
-        $user = User::factory()->make();
-        // ログイン状態している
-        $this->actingAs($user);
-        // 実行
-        $response = $this->get(route('posts.index'));
-
-        $response->assertStatus(200);
-    }
+  /**
+   * A basic feature test example.
+   * 
+   * @return void
+   */
+  public function testIndex()
+  {
+    $this->withoutExceptionHandling();
+    // id1のユーザーをログイン状態にさせ、getでposts.indexにリクエストを送る
+    $response = $this->actingAs(User::find(1))->get(route('posts.index'));    
+    dd($response);
+    // 引数に入ってるリクエストコードを受け取れてるか確認する
+    $response->assertStatus(200);
+    // 引数に入ってるリクエストコードを受け取れてるか確認する
+    $response->assertStatus(200);
+  }
 }
