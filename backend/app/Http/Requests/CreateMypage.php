@@ -28,7 +28,7 @@ class CreateMypage extends FormRequest
   {
     return [
       'biography.max' => 'コメント本文は200文字以内で入力してください',
-      'image.max' => '1ギガバイト未満の画像を選択してください',
+      'image.max' => '1メガバイト未満の画像を選択してください',
       'mimes' => '指定された拡張子（PNG/JPG/GIF）ではありません。',
     ];
   }
