@@ -29,5 +29,7 @@
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="DB_CONNECTION" value="mysql_testing"/>
         <server name="DB_DATABASE" value="jojodachi_test"/>
+        <server name="DB_DATABASE" value="touch database\database_test.sqlite"/>
+
     </php>
 </phpunit>
