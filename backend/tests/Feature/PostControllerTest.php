@@ -2,10 +2,12 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
+  use RefreshDatabase;
   public function testIndex()
   {
       // 準備 userを作る
