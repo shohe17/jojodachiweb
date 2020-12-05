@@ -9,22 +9,21 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class HelloTest extends TestCase
 {
-  use DatabaseMigrations;
 
-  public function testHello()
-  {
+  // public function testHello()
+  // {
 
-    $response = $this->get('/');
-    $response->assertStatus(200);
+    // $response = $this->get('/');
+    // $response->assertStatus(200);
 
-    $response = $this->get('/hello');
-    $response->assertStatus(302);
+    // $response = $this->get('/hello');
+    // $response->assertStatus(302);
 
-    $user = factory(User::class)->create();
-    $response = $this->actingAs($user)->get('/hello');
-    $response->assertStatus(200);
+    // $user = factory(User::class)->create();
+    // $response = $this->actingAs($user)->get('/hello');
+    // $response->assertStatus(200);
 
-    $response = $this->get('/no_route');
-    $response->assertStatus(404);
-  }
+    // $response = $this->get('/no_route');
+    // $response->assertStatus(404);
+  // }
 }
