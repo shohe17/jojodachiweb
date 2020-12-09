@@ -33,17 +33,3 @@
         </nav>
       </div>
     </div>
-    <!-- <div class="co-6">
-      <div class="col-12">
-         -->
-        <!-- 画像を指定のファイルに入れ込む -->
-        <!-- <img src="{{ asset('/strage/loginphoto/jojo1.jpg') }}" id="imageArea" alt="aa">
-      </div> -->
-      <!-- <script>
-        const imageArea = document.getElementById('imageArea');
-        const images = ['../../public', '【画像パス2】', '【画像パス3】'];
-
-        const imageNo = Math.floor(Math.random() * images.length)
-        imageArea.src = images[imageNo];
-      </script> -->
-    <!-- </div> -->
