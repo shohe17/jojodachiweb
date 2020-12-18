@@ -36,7 +36,7 @@ class PostController extends Controller
     //postクラスのインスタンス生成
     $post = new Post();
     //postのtitleはリクエストされたtitleと定義
-    $post->title = $request->title;
+    $post->title = $request->title;                           
     //$pathの文字列にpublic/が合った場合、publc/を空白に変更
     $post->image_at = str_replace('public/', '', $path);
     //postのuser_idはuser_id
