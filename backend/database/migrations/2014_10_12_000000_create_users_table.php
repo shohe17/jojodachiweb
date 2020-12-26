@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
       $table->string('name')->unique();
       //uniqueで同じ値を存在させないようにする
       $table->string('email')->unique();
-      $table->text('image_at');
-      $table->text('biography');
+      $table->text('image_at')->nullable();
+      $table->text('biography')->nullable();
       //nullableでtimestampのnullを許可する（基本強制）
       $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
