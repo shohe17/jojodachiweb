@@ -19,11 +19,11 @@
               @csrf
               <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" />
+                <input type="text" class="form-control" id="email" name="email" value="test@gmail.com" />
               </div>
               <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" class="form-control" id="password" name="password" />
+                <input type="password" class="form-control" id="password" name="password" value="test1234" />
               </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-black">ログイン</button>
