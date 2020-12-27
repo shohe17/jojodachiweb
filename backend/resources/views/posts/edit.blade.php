@@ -12,7 +12,7 @@
           </ul>
         </div>
       @endif
-      <h2 class="pb-2 col-12 text-info">投稿編集</h2>
+      <h2 class="pb-2 col-12 text-black">投稿編集</h2>
       <!-- 第一引数に名前、第二引数にパラメーターを入れる -->
       <form class="pl-4" method="post" action="{{ route('posts.edit', ['id' => $post->id ]) }}" enctype="multipart/form-data">
         @csrf
@@ -22,7 +22,7 @@
           <input type="text" style="width: 400px;" name="title" id="title" value="{{ old('title') ?? $post->title }}" placeholde="説明文">
         </div>
         <div>
-          <button type="submit" class=" btn btn-info ">送信する</button>
+          <button type="submit" class=" btn btn-black">送信する</button>
         </div>
       </form>
       </div>

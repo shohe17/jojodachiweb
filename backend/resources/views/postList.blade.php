@@ -29,10 +29,10 @@
             <!-- マイページかつログインしているユーザーの場合 -->
             @if ($page === 'mypage' && $user->name === Auth::user()->name )
             <div class="text-right d-flex justify-content-center">
-              <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm">編集</a>
+              <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-black btn-sm">編集</a>
               <form method="post" action="delete/{{$post->id}}">
               {{ csrf_field() }}
-              <button class="btn btn-primary btn-sm" type="submit" value="削除">削除</button>
+              <button class="btn btn-black btn-sm" type="submit" value="削除">削除</button>
               </form>
             </div>
             @endif

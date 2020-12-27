@@ -33,7 +33,7 @@
           <input type="hidden" name="post_id" value="{{ $posts->id }}">
         </div>
         <div>
-          <button type="submit" class=" btn btn-info ml-3">送信する</button>
+          <button type="submit" class=" btn btn-black ml-3">送信する</button>
         </div>
         <div class="p-3">
           <h5 class="card-title">コメント一覧</h5>

@@ -14,7 +14,7 @@
               </ul>
             </div>
           @endif
-        <h2 class="pb-3 col-12 text-info">プロフィール設定</h2>
+        <h2 class="pb-3 col-12 text-black">プロフィール設定</h2>
         <form class="pl-4" action="{{ route('user.edit', ['user_name' => $user->name]) }}" method="post" enctype="multipart/form-data">
           @csrf
           <label>プロフィール画像</label>
@@ -28,7 +28,7 @@
             <textarea rows="5" cols="50" name="biography" id="biography"></textarea>
           </div>
           <div>
-            <button type="submit" class="btn btn-info">送信する</button>
+            <button type="submit" class="btn btn-black">送信する</button>
           </div>
         </form>
       </div>

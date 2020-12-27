@@ -11,7 +11,7 @@
           </ul>
         </div>
       @endif
-      <h2 class="pb-2 col-12 text-info">画像投稿</h2>
+      <h2 class="pb-2 col-12 text-black">画像投稿</h2>
       <form class="pl-4" action="{{ route('posts.create') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="pb-3">
@@ -24,7 +24,7 @@
           <label for="image"></label>
         </div>
         <div>
-          <button type="submit" class=" btn btn-info ">送信する</button>
+          <button type="submit" class=" btn btn-black">送信する</button>
         </div>
       </form>
     </div>

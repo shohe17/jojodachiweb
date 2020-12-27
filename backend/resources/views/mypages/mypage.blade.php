@@ -11,19 +11,19 @@
     <div class="col-6 ml-5">
       @if ($user->name === Auth::user()->name)
         <!-- 自分のユーザーページの場合設定ボタンが出る -->
-        <a href="{{ route('user.edit', ['user_name' => $user->name]) }}" class="btn btn-primary btn mb-5">プロフィール設定</a>
+        <a href="{{ route('user.edit', ['user_name' => $user->name]) }}" class="btn btn-black btn mb-5">プロフィール設定</a>
         @else
           <!-- 別ユーザーページのときはフォローボタン -->
           <!-- 確認 -->
           @if (auth()->user()->isFollowing($user->id))
             <form method="post" action="{{ route ('posts.unfollow', ['id' => $user->id]) }}">
               @csrf
-              <button class="btn btn-primary btn mb-5" type="submit" value="フォロー">フォロー解除</button>
+              <button class="btn btn-black btn mb-5" type="submit" value="フォロー">フォロー解除</button>
             </form>
           @else
             <form method="post" action="{{ route ('posts.follow', ['id' => $user->id]) }}">
               @csrf
-              <button class="btn btn-primary btn mb-5" type="submit" value="フォロー">フォローする</button>
+              <button class="btn btn-black btn mb-5" type="submit" value="フォロー">フォローする</button>
             </form>  
           @endif
         @endif

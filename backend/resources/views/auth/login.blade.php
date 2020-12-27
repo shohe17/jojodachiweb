@@ -6,7 +6,7 @@
     <div class="col-6">
       <div class="col col-md-offset-3 col-md-9">
         <nav class="panel panel-default h5">
-          <div class="panel-heading">ログイン</div>
+          <div class="panel-heading"  >ログイン</div>
           <div class="panel-body">
             @if($errors->any())
             <div class="alert alert-danger">
@@ -26,7 +26,7 @@
                 <input type="password" class="form-control" id="password" name="password" />
               </div>
               <div class="text-right">
-                <button type="submit" class="btn btn-primary">ログイン</button>
+                <button type="submit" class="btn btn-black">ログイン</button>
               </div>
             </form>
           </div>
