@@ -2,6 +2,7 @@
 
 ## 説明動画
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uRlAsvF7Jd0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## 作成した経緯
 - 自分のジョジョ立ち（写真）や、ジョジョに関する写真を投稿するWebアプリ。
 - よくあるSNSにジョジョ立ち写真を投稿するのは少し勇気がるかもしれませんが、
