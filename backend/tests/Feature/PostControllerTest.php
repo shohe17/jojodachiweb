@@ -11,11 +11,8 @@ class PostControllerTest extends TestCase
   public function testIndex()
   {
       // 準備 userを作る
-      // makeはdbにデータをいれない
-      // createはdbにデータ
+      // makeはdbにデータをいれない、createはdbにデータをいれる
       $user = User::factory()->make();
-
-      // ログイン状態している
       $this->actingAs($user);
       // 実行（画面を開く）
       $response = $this->get(route('posts.index'));
@@ -49,5 +46,13 @@ class PostControllerTest extends TestCase
       ->assertRedirect(route('login'));
   }
 
+  public function testtest()
+  {
+    // 準備
+
+    // 実行
+
+    // 検証
+  }
 
 }
